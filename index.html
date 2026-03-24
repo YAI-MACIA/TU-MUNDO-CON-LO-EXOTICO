@@ -35,6 +35,12 @@
                 </ul>
             </nav>
             <div class="nav-actions">
+                <div class="language-selector">
+                    <select id="language-select" class="language-select">
+                        <option value="es">ES</option>
+                        <option value="en">EN</option>
+                    </select>
+                </div>
                 <button class="btn-primary">Explorar</button>
             </div>
         </div>
@@ -112,6 +118,15 @@
             <div class="section-header centered">
                 <span class="section-tagline">Catálogo Premium</span>
                 <h2>Conoce a tus Próximos <span class="highlight">Compañeros</span></h2>
+                <div class="search-container">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="animal-search" placeholder="Buscar animales...">
+                        <button id="clear-search" class="clear-search-btn" style="display: none;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
                 <div class="filter-bar">
                     <button class="filter-btn active" data-filter="all">Todos</button>
                     <button class="filter-btn" data-filter="mamifero">Mamíferos</button>
@@ -192,7 +207,10 @@
 
     <!-- Shopping Cart UI -->
     <div class="safari-cart-btn" onclick="toggleCart()">
-        <img src="https://cdn-icons-png.flaticon.com/512/2855/2855146.png" alt="Safari Jeep Icon" width="40">
+        <div class="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+            <i class="fas fa-paw cart-paw"></i>
+        </div>
         <span id="cart-count">0</span>
     </div>
 
