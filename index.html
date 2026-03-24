@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TU MUNDO CON LO EXOTICO - Tienda de Mascotas Premium</title>
+    <meta name="description" content="Descubre la mayor selección de mascotas exóticas. Lemures, canguros, tarántulas y más en un ambiente de lujo safari acuático.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="vivido.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header / Nav -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <span class="logo-icon"><i class="fas fa-paw"></i></span>
+                <span class="logo-text">TU MUNDO <span class="highlight">EXÓTICO</span></span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#catalogo">Catálogo</a></li>
+                    <li><a href="#planes">Planes</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="nav-actions">
+                <button class="btn-primary">Explorar</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-image-container">
+            <img src="exotic_safari_hero_banner_v2_1774321346506.png" alt="Exotic Safari Hero">
+        </div>
+        <div class="hero-content">
+            <div class="badge">Especies Únicas • Safari Premium</div>
+            <h1>Encuentra lo <span class="text-gradient">Inimaginable</span></h1>
+            <p>Conéctate con la naturaleza más rara del planeta. Más de 20 especies exóticas bajo el cuidado más profesional y ético del mercado.</p>
+            <div class="hero-buttons">
+                <a href="#catalogo" class="btn-cta">Ver Colección</a>
+                <a href="#nosotros" class="btn-secondary">Nuestra Historia</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse"></div>
+            <span>Desliza</span>
+        </div>
+    </section>
+
+    <!-- Nosostros / Who we are -->
+    <section id="nosotros" class="about-section section-padding">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <span class="section-tagline">Quiénes Somos</span>
+                    <h2>Nuestra Esencia <span class="highlight">Salvaje</span></h2>
+                    
+                    <div class="about-blocks">
+                        <div class="about-block">
+                            <h3><i class="fas fa-fingerprint"></i> ¿Qué Somos?</h3>
+                            <p>Somos el primer santuario boutique de mascotas exóticas en la región, uniendo el lujo con la conservación responsable.</p>
+                        </div>
+                        <div class="about-block">
+                            <h3><i class="fas fa-tools"></i> ¿Qué Hacemos?</h3>
+                            <p>Facilitamos el acceso a especies fascinantes siguiendo protocolos internacionales de bienestar animal y legalidad.</p>
+                        </div>
+                        <div class="about-block">
+                            <h3><i class="fas fa-heart"></i> ¿Por Qué?</h3>
+                            <p>Porque creemos que la convivencia con especies únicas transforma la perspectiva humana sobre la biodiversidad.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-stats-visual">
+                    <div class="stat-card gold">
+                        <span class="number">20+</span>
+                        <span class="label">Especies</span>
+                    </div>
+                    <div class="stat-card teal">
+                        <span class="number">100%</span>
+                        <span class="label">Legales</span>
+                    </div>
+                    <div class="stat-card aqua">
+                        <span class="number">24/7</span>
+                        <span class="label">Soporte Veteriario</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section id="catalogo" class="catalog-section section-padding">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-tagline">Catálogo Premium</span>
+                <h2>Conoce a tus Próximos <span class="highlight">Compañeros</span></h2>
+                <div class="filter-bar">
+                    <button class="filter-btn active" data-filter="all">Todos</button>
+                    <button class="filter-btn" data-filter="mamifero">Mamíferos</button>
+                    <button class="filter-btn" data-filter="reptil">Reptiles</button>
+                    <button class="filter-btn" data-filter="aracnido">Arácnidos/Insectos</button>
+                    <button class="filter-btn" data-filter="anfibio">Anfibios/Aves</button>
+                </div>
+            </div>
+
+            <div class="catalog-grid" id="animals-grid">
+                <!-- Data will be populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Categorías / Estilo Safari banner -->
+    <section class="banner-safari">
+        <div class="banner-content">
+            <h2>¿Buscas Asesoría Especializada?</h2>
+            <p>Nuestros expertos en exóticos están listos para ayudarte a elegir.</p>
+            <button class="btn-light">Contactar Experto</button>
+        </div>
+    </section>
+
+    <!-- Planes y Tarifas -->
+    <section id="planes" class="pricing-section section-padding">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-tagline">Servicios Exclusivos</span>
+                <h2>Planes y <span class="highlight">Tarifas</span> de Cuidado</h2>
+                <p>Nuestra compromiso no termina en la entrega. Te acompañamos en cada paso.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Plan 1 -->
+                <div class="price-card">
+                    <div class="card-edge"></div>
+                    <h3>Básico Safari</h3>
+                    <div class="price"><span>$</span>149<small>/mes</small></div>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Chequeo mensual online</li>
+                        <li><i class="fas fa-check"></i> Guía Nutricional</li>
+                        <li><i class="fas fa-check"></i> Soporte por Chat</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Visita Domiciliaria</li>
+                    </ul>
+                    <button class="btn-outline">Elegir Plan</button>
+                </div>
+                <!-- Plan 2 -->
+                <div class="price-card featured">
+                    <div class="card-edge"></div>
+                    <div class="featured-badge">Más Popular</div>
+                    <h3>Elite Explorer</h3>
+                    <div class="price"><span>$</span>299<small>/mes</small></div>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> 2 Visitas al veterinario</li>
+                        <li><i class="fas fa-check"></i> Kit de Alimentación Premium</li>
+                        <li><i class="fas fa-check"></i> Soporte 24/7 Prioritario</li>
+                        <li><i class="fas fa-check"></i> Seguro de Salud Básico</li>
+                    </ul>
+                    <button class="btn-primary gold">Suscribirme</button>
+                </div>
+                <!-- Plan 3 -->
+                <div class="price-card">
+                    <div class="card-edge"></div>
+                    <h3>Preserve Pro</h3>
+                    <div class="price"><span>$</span>549<small>/mes</small></div>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Cuidado Integral 360°</li>
+                        <li><i class="fas fa-check"></i> Hábitat Automatizado</li>
+                        <li><i class="fas fa-check"></i> Entrenador Profesional</li>
+                        <li><i class="fas fa-check"></i> Cobertura Médica Total</li>
+                    </ul>
+                    <button class="btn-outline">Elegir Plan</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Cart UI -->
+    <div class="safari-cart-btn" onclick="toggleCart()">
+        <img src="https://cdn-icons-png.flaticon.com/512/2855/2855146.png" alt="Safari Jeep Icon" width="40">
+        <span id="cart-count">0</span>
+    </div>
+
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-header">
+            <h3><i class="fas fa-truck-pickup"></i> Tu Expedición</h3>
+            <button onclick="toggleCart()"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="cart-items-list" class="cart-items-list">
+            <!-- Items appear here -->
+        </div>
+        <div class="cart-footer">
+            <div class="total-row">
+                <span>Total:</span>
+                <span id="cart-total">$0</span>
+            </div>
+            <button class="btn-checkout">Completar Selección</button>
+        </div>
+    </div>
+    <div id="animal-modal" class="animal-modal">
+        <div class="animal-modal-content">
+            <button class="close-modal" onclick="closeAnimalModal()"><i class="fas fa-times"></i></button>
+            <div class="animal-modal-body">
+                <div class="animal-modal-img">
+                    <img id="modal-img" src="" alt="">
+                </div>
+                <div class="animal-modal-info">
+                    <h2 id="modal-name">Nombre del Animal</h2>
+                    <span id="modal-category" class="category-badge">CATEGORÍA</span>
+                    <p id="modal-desc" class="full-desc">Descripción detallada...</p>
+                    
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <i class="fas fa-utensils"></i>
+                            <div>
+                                <strong>Alimentación</strong>
+                                <p id="modal-feeding">Datos de dieta...</p>
+                            </div>
+                        </div>
+                        <div class="spec-item">
+                            <i class="fas fa-house"></i>
+                            <div>
+                                <strong>Hábitat Ideal</strong>
+                                <p id="modal-habitat">Entorno recomendado...</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <div id="modal-price" class="modal-price">$0</div>
+                        <button id="modal-add-btn" class="btn-primary">Añadir a Expedición</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contacto -->
+    <section id="contacto" class="contact-section section-padding">
+        <div class="container">
+            <div class="contact-card">
+                <div class="contact-info">
+                    <h2>Hablemos de tu <span class="highlight">Futuro Exótico</span></h2>
+                    <p>Déjanos tus datos o visítanos en nuestro santuario principal.</p>
+                    <div class="info-items">
+                        <div class="info-item">
+                            <i class="fas fa-location-dot"></i>
+                            <div>
+                                <strong>Ubicación</strong>
+                                <p>Selva Esmeralda, Av. 102, Caracas, VE.</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email</strong>
+                                <p>info@tumundoexotico.com</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>Teléfono</strong>
+                                <p>+58 (412) 555-0199</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-container">
+                    <form action="#" id="contact-form">
+                        <div class="form-group">
+                            <label>Nombre Completo</label>
+                            <input type="text" placeholder="Ej. Alexander Safari" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Correo Electrónico</label>
+                            <input type="email" placeholder="email@ejemplo.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Mascota de Interés</label>
+                            <select>
+                                <option disabled selected>Selecciona una opción</option>
+                                <option>Lemur</option>
+                                <option>Canguro</option>
+                                <option>Hurón</option>
+                                <option>Tarántula</option>
+                                <option>Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Mensaje</label>
+                            <textarea rows="4" placeholder="¿Cómo podemos ayudarte?"></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Enviar Solicitud <i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-details">
+                <div class="logo">
+                    <span class="logo-icon"><i class="fas fa-paw"></i></span>
+                    <span class="logo-text">TU MUNDO <span class="highlight">EXÓTICO</span></span>
+                </div>
+                <p>Pasión por la biodiversidad. Cuidado ético y responsable de especies exóticas de todo el mundo.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Navegación</h4>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#catalogo">Catálogo</a></li>
+                    <li><a href="#planes">Planes mensuales</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                </ul>
+            </div>
+            <div class="footer-legal">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Certificaciones WAZA</a></li>
+                    <li><a href="#">Permisos Ambientales</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h4>Newsletter</h4>
+                <p>Suscríbete para recibir noticias sobre nuevas llegadas.</p>
+                <div class="newsletter-input">
+                    <input type="email" placeholder="Tu email">
+                    <button><i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Tu Mundo con lo Exótico. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="script.js?v=3"></script>
+</body>
+</html>
