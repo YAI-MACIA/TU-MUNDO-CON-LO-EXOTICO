@@ -245,9 +245,9 @@ nav ul li a:hover {
     text-shadow: 0 2px 10px rgba(0,0,0,0.5); 
 }
 
-/* Para fondos claros, la palabras resaltadas irán en negro puro y sin sombra */
+/* Para fondos claros, la palabras resaltadas irán en el mismo tono oscuro elegante del título y sin sombra */
 .section-padding h2 .highlight {
-    color: #000000;
+    color: inherit; /* Hereda exactamente el color del texto adyacente, ej. #1B2A29 */
     text-shadow: none;
 }
 

@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TU MUNDO CON LO EXOTICO - Tienda de Mascotas Premium</title>
-    <meta name="description" content="Descubre la mayor selección de mascotas exóticas. Lemures, canguros, tarántulas y más en un ambiente de lujo safari acuático.">
+    <meta name="description"
+        content="Descubre la mayor selección de mascotas exóticas. Lemures, canguros, tarántulas y más en un ambiente de lujo safari acuático.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="vivido.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
 
     <!-- Header / Nav -->
@@ -44,7 +49,8 @@
         <div class="hero-content">
             <div class="badge">Especies Únicas • Safari Premium</div>
             <h1>Encuentra lo <span class="text-gradient">Inimaginable</span></h1>
-            <p>Conéctate con la naturaleza más rara del planeta. Más de 20 especies exóticas bajo el cuidado más profesional y ético del mercado.</p>
+            <p>Conéctate con la naturaleza más rara del planeta. Más de 20 especies exóticas bajo el cuidado más
+                profesional y ético del mercado.</p>
             <div class="hero-buttons">
                 <a href="#catalogo" class="btn-cta">Ver Colección</a>
                 <a href="#nosotros" class="btn-secondary">Nuestra Historia</a>
@@ -63,19 +69,22 @@
                 <div class="about-text">
                     <span class="section-tagline">Quiénes Somos</span>
                     <h2>Nuestra Esencia <span class="highlight">Salvaje</span></h2>
-                    
+
                     <div class="about-blocks">
                         <div class="about-block">
                             <h3><i class="fas fa-fingerprint"></i> ¿Qué Somos?</h3>
-                            <p>Somos el primer santuario boutique de mascotas exóticas en la región, uniendo el lujo con la conservación responsable.</p>
+                            <p>Somos el primer santuario boutique de mascotas exóticas en la región, uniendo el lujo con
+                                la conservación responsable.</p>
                         </div>
                         <div class="about-block">
                             <h3><i class="fas fa-tools"></i> ¿Qué Hacemos?</h3>
-                            <p>Facilitamos el acceso a especies fascinantes siguiendo protocolos internacionales de bienestar animal y legalidad.</p>
+                            <p>Facilitamos el acceso a especies fascinantes siguiendo protocolos internacionales de
+                                bienestar animal y legalidad.</p>
                         </div>
                         <div class="about-block">
                             <h3><i class="fas fa-heart"></i> ¿Por Qué?</h3>
-                            <p>Porque creemos que la convivencia con especies únicas transforma la perspectiva humana sobre la biodiversidad.</p>
+                            <p>Porque creemos que la convivencia con especies únicas transforma la perspectiva humana
+                                sobre la biodiversidad.</p>
                         </div>
                     </div>
                 </div>
@@ -214,7 +223,7 @@
                     <h2 id="modal-name">Nombre del Animal</h2>
                     <span id="modal-category" class="category-badge">CATEGORÍA</span>
                     <p id="modal-desc" class="full-desc">Descripción detallada...</p>
-                    
+
                     <div class="specs-grid">
                         <div class="spec-item">
                             <i class="fas fa-utensils"></i>
@@ -231,7 +240,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="modal-footer">
                         <div id="modal-price" class="modal-price">$0</div>
                         <button id="modal-add-btn" class="btn-primary">Añadir a Expedición</button>
@@ -297,7 +306,8 @@
                             <label>Mensaje</label>
                             <textarea rows="4" placeholder="¿Cómo podemos ayudarte?"></textarea>
                         </div>
-                        <button type="submit" class="btn-submit">Enviar Solicitud <i class="fas fa-paper-plane"></i></button>
+                        <button type="submit" class="btn-submit">Enviar Solicitud <i
+                                class="fas fa-paper-plane"></i></button>
                     </form>
                 </div>
             </div>
@@ -348,10 +358,22 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Tu Mundo con lo Exótico. Todos los derechos reservados.</p>
+            <p>&copy; 2026 Tu Mundo con lo Exótico. Todos los derechos reservados a Yai.</p>
         </div>
-    </footer>
+    <div id="checkout-modal" class="animal-modal">
+        <div class="animal-modal-content" style="max-width: 500px; text-align: center; padding: 40px;">
+            <button class="close-modal" onclick="closeCheckout()"><i class="fas fa-times"></i></button>
+            <i class="fas fa-paw" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
+            <h2 style="font-family: 'Playfair Display', serif; color: var(--text); margin-bottom: 15px;">¡Va en camino!</h2>
+            <p style="color: var(--text); font-size: 1.1rem; line-height: 1.6; margin-bottom: 25px;">
+                Recordatorio: <strong>Estas vidas no son juguetes.</strong> <br><br>
+                Por favor, asume el compromiso ético de brindarles amor, respeto y un cuidado sumamente responsable en su nuevo hábitat acorde a su especie.
+            </p>
+            <button class="btn-primary" onclick="closeCheckout()">Entendido y Acepto</button>
+        </div>
+    </div>
 
-    <script src="script.js?v=3"></script>
+    <script src="script.js?v=4"></script>
 </body>
+
 </html>

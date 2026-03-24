@@ -292,14 +292,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Tu expedición está vacía. Selecciona un compañero primero.');
                 return;
             }
-            alert('¡Tu nuevo compañero exótico va en camino!\n\nRecuerda que son vidas, no juguetes. Por favor, asume el compromiso de brindarles amor, respeto y un cuidado sumamente responsable.');
-            
-            // Vaciar el carrito
-            cart.length = 0;
-            updateCartUI();
-            toggleCart();
+            // Abrir popup nativo premium en vez del alert feo
+            document.getElementById('checkout-modal').classList.add('active');
         });
     }
+
+    window.closeCheckout = () => {
+        document.getElementById('checkout-modal').classList.remove('active');
+        cart.length = 0; // Vaciamos y limpiamos expedición
+        updateCartUI();
+        toggleCart(); // Cerramos panel lateral
+    };
 
     // --- Filters ---
     filterBtns.forEach(btn => {
