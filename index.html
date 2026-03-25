@@ -12,7 +12,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700;900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="vivido.css">
+    <link rel="stylesheet" href="vivido.css?v=10">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
@@ -22,10 +22,65 @@
     <header>
         <div class="header-container">
             <div class="logo">
-                <span class="logo-icon"><i class="fas fa-paw"></i></span>
-                <span class="logo-text">TU MUNDO <span class="highlight">EXÓTICO</span></span>
+                <i class="fas fa-paw logo-icon"></i>
+                <div class="logo-text">
+                    Tu Mundo <span class="highlight">Exótico</span>
+                </div>
             </div>
-            <nav>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- Mobile Navigation Menu -->
+            <nav class="mobile-nav" id="mobile-nav">
+                <div class="mobile-nav-header">
+                    <div class="mobile-nav-logo">
+                        <i class="fas fa-paw"></i>
+                        <span>Tu Mundo Exótico</span>
+                    </div>
+                    <button class="mobile-nav-close" id="mobile-nav-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="mobile-nav-content">
+                    <ul class="mobile-nav-menu">
+                        <li><a href="#inicio" class="mobile-nav-link"><i class="fas fa-home"></i> Inicio</a></li>
+                        <li><a href="#nosotros" class="mobile-nav-link"><i class="fas fa-users"></i> Nosotros</a></li>
+                        <li><a href="#catalogo" class="mobile-nav-link"><i class="fas fa-paw"></i> Catálogo</a></li>
+                        <li><a href="#planes" class="mobile-nav-link"><i class="fas fa-crown"></i> Planes</a></li>
+                        <li><a href="#contacto" class="mobile-nav-link"><i class="fas fa-envelope"></i> Contacto</a>
+                        </li>
+                    </ul>
+
+                    <div class="mobile-nav-actions">
+                        <div class="mobile-language-selector">
+                            <select id="mobile-language-select" class="mobile-language-select">
+                                <option value="es">ES</option>
+                                <option value="en">EN</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="mobile-nav-footer">
+                        <div class="mobile-nav-social">
+                            <a href="https://www.instagram.com/tumundoexotico" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.facebook.com/tumundoexotico" target="_blank"><i class="fab fa-facebook"></i></a>
+                            <a href="https://wa.me/573000000000" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                            <a href="https://www.tiktok.com/@tumundoexotico" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        </div>
+                        <p class="mobile-nav-copyright">© 2026 Tu Mundo Exótico</p>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Desktop Navigation -->
+            <nav id="nav-menu" class="desktop-nav">
                 <ul>
                     <li><a href="#inicio">Inicio</a></li>
                     <li><a href="#nosotros">Nosotros</a></li>
@@ -34,14 +89,15 @@
                     <li><a href="#contacto">Contacto</a></li>
                 </ul>
             </nav>
-            <div class="nav-actions">
+
+            <div class="nav-actions desktop-nav-actions">
                 <div class="language-selector">
                     <select id="language-select" class="language-select">
                         <option value="es">ES</option>
                         <option value="en">EN</option>
                     </select>
                 </div>
-                <button class="btn-primary">Explorar</button>
+
             </div>
         </div>
     </header>
@@ -73,12 +129,12 @@
         <div class="container">
             <div class="about-grid">
                 <div class="about-text">
-                    <span class="section-tagline">Quiénes Somos</span>
+                    <span class="section-tagline">SOBRE NOSOSTROS </span>
                     <h2>Nuestra Esencia <span class="highlight">Salvaje</span></h2>
 
                     <div class="about-blocks">
                         <div class="about-block">
-                            <h3><i class="fas fa-fingerprint"></i> ¿Qué Somos?</h3>
+                            <h3><i class="fas fa-fingerprint"></i> ¿Quienes Somos?</h3>
                             <p>Somos el primer santuario boutique de mascotas exóticas en la región, uniendo el lujo con
                                 la conservación responsable.</p>
                         </div>
@@ -94,18 +150,30 @@
                         </div>
                     </div>
                 </div>
-                <div class="about-stats-visual">
-                    <div class="stat-card gold">
-                        <span class="number">20+</span>
+                <div class="about-stats-visual" id="stats-section">
+                    <div class="stat-card">
+                        <div class="icon-circle">
+                            <i class="fas fa-paw"></i>
+                        </div>
+                        <span class="number counter-anim" data-target="20" data-suffix="+">0</span>
                         <span class="label">Especies</span>
+                        <p class="stat-desc">Una selección rigurosa de biodiversidad exótica preservada con integridad.</p>
                     </div>
-                    <div class="stat-card teal">
-                        <span class="number">100%</span>
+                    <div class="stat-card">
+                        <div class="icon-circle">
+                            <i class="fas fa-gavel"></i>
+                        </div>
+                        <span class="number counter-anim" data-target="100" data-suffix="%">0</span>
                         <span class="label">Legales</span>
+                        <p class="stat-desc">Certificación internacional y ética de conservación en cada ejemplar.</p>
                     </div>
-                    <div class="stat-card aqua">
-                        <span class="number">24/7</span>
-                        <span class="label">Soporte Veteriario</span>
+                    <div class="stat-card">
+                        <div class="icon-circle">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <span class="number counter-anim" data-target="24" data-suffix="/7">0</span>
+                        <span class="label">Soporte</span>
+                        <p class="stat-desc">Asesoría experta permanente para el cuidado de tu santuario privado.</p>
                     </div>
                 </div>
             </div>
@@ -147,7 +215,7 @@
         <div class="banner-content">
             <h2>¿Buscas Asesoría Especializada?</h2>
             <p>Nuestros expertos en exóticos están listos para ayudarte a elegir.</p>
-            <button class="btn-light">Contactar Experto</button>
+            <a href="#contacto" class="btn-light">Contactar</a>
         </div>
     </section>
 
@@ -177,7 +245,7 @@
                 <!-- Plan 2 -->
                 <div class="price-card featured">
                     <div class="card-edge"></div>
-                    <div class="featured-badge">Más Popular</div>
+                    <div class="featured-badge"> Más Popular </div>
                     <h3>Elite Explorer</h3>
                     <div class="price"><span>$</span>299<small>/mes</small></div>
                     <ul class="features">
@@ -232,7 +300,7 @@
     </div>
     <div id="animal-modal" class="animal-modal">
         <div class="animal-modal-content">
-            <button class="close-modal" onclick="closeAnimalModal()"><i class="fas fa-times"></i></button>
+            <button class="close-modal" id="close-modal-btn"><i class="fas fa-times"></i></button>
             <div class="animal-modal-body">
                 <div class="animal-modal-img">
                     <img id="modal-img" src="" alt="">
@@ -342,10 +410,10 @@
                 </div>
                 <p>Pasión por la biodiversidad. Cuidado ético y responsable de especies exóticas de todo el mundo.</p>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/tumundoexotico" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/tumundoexotico" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://wa.me/573000000000" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.tiktok.com/@tumundoexotico" target="_blank"><i class="fab fa-tiktok"></i></a>
                 </div>
             </div>
             <div class="footer-links">
@@ -378,20 +446,22 @@
         <div class="footer-bottom">
             <p>&copy; 2026 Tu Mundo con lo Exótico. Todos los derechos reservados a Yai.</p>
         </div>
-    <div id="checkout-modal" class="animal-modal">
-        <div class="animal-modal-content" style="max-width: 500px; text-align: center; padding: 40px;">
-            <button class="close-modal" onclick="closeCheckout()"><i class="fas fa-times"></i></button>
-            <i class="fas fa-paw" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
-            <h2 style="font-family: 'Playfair Display', serif; color: var(--text); margin-bottom: 15px;">¡Va en camino!</h2>
-            <p style="color: var(--text); font-size: 1.1rem; line-height: 1.6; margin-bottom: 25px;">
-                Recordatorio: <strong>Estas vidas no son juguetes.</strong> <br><br>
-                Por favor, asume el compromiso ético de brindarles amor, respeto y un cuidado sumamente responsable en su nuevo hábitat acorde a su especie.
-            </p>
-            <button class="btn-primary" onclick="closeCheckout()">Entendido y Acepto</button>
+        <div id="checkout-modal" class="animal-modal">
+            <div class="animal-modal-content" style="max-width: 500px; text-align: center; padding: 40px;">
+                <button class="close-modal" onclick="closeCheckout()"><i class="fas fa-times"></i></button>
+                <i class="fas fa-paw" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
+                <h2 style="font-family: 'Playfair Display', serif; color: var(--text); margin-bottom: 15px;">¡Va en
+                    camino!</h2>
+                <p style="color: var(--text); font-size: 1.1rem; line-height: 1.6; margin-bottom: 25px;">
+                    Recordatorio: <strong>Estas vidas no son juguetes.</strong> <br><br>
+                    Por favor, asume el compromiso ético de brindarles amor, respeto y un cuidado sumamente responsable
+                    en su nuevo hábitat acorde a su especie.
+                </p>
+                <button class="btn-primary" onclick="closeCheckout()">Entendido y Acepto</button>
+            </div>
         </div>
-    </div>
 
-    <script src="script.js?v=4"></script>
+        <script src="script.js?v=10"></script>
 </body>
 
 </html>
