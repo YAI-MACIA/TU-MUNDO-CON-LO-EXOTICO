@@ -630,7 +630,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 img: 'jirafa.png', price: 65000
             },
             {
-                id: 29, name: 'Caballo De la Perra de Arqui', category: 'mamifero', origin: 'España',
+                id: 29, name: 'Caballo ', category: 'mamifero', origin: 'España',
                 desc: 'Un purasangre de crin majestuosa, inteligencia brillante e imponente porte real.',
                 feeding: 'Pasto de alta energía, avena, heno selecto y forraje.',
                 habitat: 'Caballerizas Premium con acceso inmediato a campos de trote abiertos.',
