@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
             about: {
                 tagline: 'About us',
                 title: 'Our Wild <span class="highlight">Essence</span>',
-                what: 'Who We Are',
+                what: 'Who Are we?',
                 what_desc: 'We are the first boutique exotic pet sanctuary in the region, uniting luxury with responsible conservation.',
                 what_do: 'What Do We Do?',
                 what_do_desc: 'We facilitate access to fascinating species following international protocols for animal welfare and legality.',
@@ -1159,44 +1159,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Stats Progressive Count Animation ---
-    const counters = document.querySelectorAll('.counter-anim');
-    const statsSection = document.getElementById('stats-section');
-    
-    if (counters.length > 0 && statsSection) {
-        let hasCounted = false;
-
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && !hasCounted) {
-                hasCounted = true;
-                
-                counters.forEach(counter => {
-                    const target = parseInt(counter.getAttribute('data-target') || 0);
-                    const suffix = counter.getAttribute('data-suffix') || '';
-                    const duration = 2000;
-                    const frameDuration = 1000 / 60;
-                    const totalFrames = Math.round(duration / frameDuration);
-                    const increment = target / totalFrames;
-                    
-                    let current = 0;
-                    
-                    const updateCounter = () => {
-                        current += increment;
-                        if (current < target) {
-                            counter.innerText = Math.ceil(current) + suffix;
-                            requestAnimationFrame(updateCounter);
-                        } else {
-                            counter.innerText = target + suffix;
-                        }
-                    };
-                    updateCounter();
-                });
-            }
-        }, { threshold: 0.5 });
-        
-        observer.observe(statsSection);
-    }
-
     // --- Reveal Animation ---
     const revealSections = document.querySelectorAll('.section-padding');
     const revealObserver = new IntersectionObserver((entries) => {
@@ -1214,6 +1176,44 @@ document.addEventListener('DOMContentLoaded', () => {
         section.style.transition = 'all 0.8s ease-out';
         revealObserver.observe(section);
     });
+
+    // --- Stats Progressive Count Animation ---
+    const counters = document.querySelectorAll('.counter-anim');
+    const statsSection = document.getElementById('stats-section');
+
+    if (counters.length > 0 && statsSection) {
+        let hasCounted = false;
+
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !hasCounted) {
+                hasCounted = true;
+
+                counters.forEach(counter => {
+                    const target = parseInt(counter.getAttribute('data-target') || 0);
+                    const suffix = counter.getAttribute('data-suffix') || '';
+                    const duration = 2000;
+                    const frameDuration = 1000 / 60;
+                    const totalFrames = Math.round(duration / frameDuration);
+                    const increment = target / totalFrames;
+
+                    let current = 0;
+
+                    const updateCounter = () => {
+                        current += increment;
+                        if (current < target) {
+                            counter.innerText = Math.ceil(current) + suffix;
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.innerText = target + suffix;
+                        }
+                    };
+                    updateCounter();
+                });
+            }
+        }, { threshold: 0.5 });
+
+        observer.observe(statsSection);
+    }
 
     const styleSheet = document.createElement("style");
     styleSheet.innerText = `.revealed { opacity: 1 !important; transform: translateY(0) !important; }`;

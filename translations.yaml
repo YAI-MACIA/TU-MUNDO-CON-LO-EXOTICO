@@ -112,7 +112,7 @@ es:
     newsletter: "Newsletter"
     newsletter_desc: "Suscríbete para recibir noticias sobre nuevas llegadas."
     email_placeholder: "Tu email"
-    derechos: "© 2026 Tu Mundo con lo Exótico. Todos los derechos reservados a Yai."
+    derechos: "© 2026 Tu Mundo con lo Exótico. Todos los derechos reservados."
   
   # Search
   search:
@@ -233,7 +233,7 @@ en:
     newsletter: "Newsletter"
     newsletter_desc: "Subscribe to receive news about new arrivals."
     email_placeholder: "Your email"
-    derechos: "© 2026 Your World with the Exotic. All rights reserved to Yai."
+    derechos: "© 2026 Your World with the Exotic. All rights reserved ."
   
   # Search
   search:

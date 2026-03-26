@@ -977,24 +977,27 @@ nav a:hover::after {
 
 .animal-card {
     background: var(--card-bg);
-    border: 1px solid rgba(14, 110, 106, 0.1);
+    border: 1px solid var(--primary);
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-    transition: var(--transition);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    /* Sombra base mÃ¡s sutil */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* TransiciÃ³n mÃ¡s estable */
     position: relative;
     color: var(--text);
 }
 
 .animal-card:hover {
     transform: translateY(-10px);
-    border-color: rgba(14, 110, 106, 0.3);
-    box-shadow: 0 20px 45px rgba(14, 110, 106, 0.15);
+    box-shadow: 0 15px 35px rgba(14, 110, 106, 0.2);
 }
 
 .animal-img {
     height: 300px;
     position: relative;
+    overflow: hidden;
+    /* Esto evita que la imagen se salga del borde al hacer zoom */
 }
 
 .animal-img img {
@@ -1006,7 +1009,7 @@ nav a:hover::after {
 
 .animal-card:hover .animal-img img {
     transform: scale(1.1);
-    filter: brightness(1.2) contrast(1.1);
+    /* Zoom mantenido */
 }
 
 .animal-img::after {
@@ -1030,6 +1033,25 @@ nav a:hover::after {
     border-radius: 50px;
     font-size: 0.75rem;
     font-weight: 700;
+}
+
+.featured-star {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    /* Dorado a Naranja */
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    border: 2px solid white;
 }
 
 .animal-info {
@@ -1108,6 +1130,18 @@ nav a:hover::after {
     gap: 30px;
 }
 
+.stat-card {
+    background: linear-gradient(135deg, #ffffff, #fdfbf7);
+    padding: 40px 30px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--primary);
+}
+
 .price-card {
     background: #ffffff;
     padding: 50px 30px;
@@ -1117,7 +1151,7 @@ nav a:hover::after {
     transition: var(--transition);
     position: relative;
     overflow: hidden;
-    border: 2px solid rgba(46, 196, 196, 0.2);
+    border: 1px solid var(--primary);
     color: #020D12;
 }
 
@@ -1842,6 +1876,72 @@ footer ul li a:hover {
     }
 }
 
+/* --- Animal List --- */
+.featured-star {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--accent);
+    color: var(--white);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 10;
+}
+
+.more-animals-container {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+}
+
+.btn-more-animals {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 10px 25px rgba(14, 110, 106, 0.3);
+    transition: var(--transition);
+}
+
+.btn-more-animals:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(14, 110, 106, 0.4);
+}
+
+.btn-more-animals i {
+    font-size: 0.9rem;
+    animation: bounceDown 2s infinite;
+}
+
+@keyframes bounceDown {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(5px);
+    }
+
+    60% {
+        transform: translateY(3px);
+    }
+}
+
 /* --- Animal Detail Modal --- */
 .animal-modal {
     position: fixed;
@@ -1873,10 +1973,9 @@ footer ul li a:hover {
     border-radius: 40px;
     position: relative;
     overflow: hidden;
-    border: 2px solid var(--primary);
-    /* Borde con color de la marca */
+    /* Borde exterior eliminado a peticiÃ³n del usuario */
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2), 0 0 20px rgba(14, 110, 106, 0.1);
-    /* Sombra suave */
+    /* Sombra suave mantenida */
     transform: translateY(30px);
     transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -1936,14 +2035,13 @@ footer ul li a:hover {
 .animal-modal-img {
     width: 60%;
     /* La imagen ahora toma mÃ¡s protagonismo (60%) */
-    background: #f0f4f4;
-    /* Un gris azulado muy tenue que resalta al animal */
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    /* Degradado con los colores de la pÃ¡gina */
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     position: relative;
-    border-right: 1px solid rgba(14, 110, 106, 0.05);
 }
 
 .animal-modal-img img {
@@ -1955,6 +2053,12 @@ footer ul li a:hover {
     padding: 30px;
     /* Espacio para que respire y no toque los bordes */
     transition: transform 0.8s ease;
+    border: 3px solid var(--primary);
+    /* Borde solicitado en la foto */
+    border-radius: 20px;
+    /* Bordes redondeados para la foto */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    /* Sombra para dar profundidad a la foto */
 }
 
 .animal-modal-content:hover .animal-modal-img img {
