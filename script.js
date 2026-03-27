@@ -457,6 +457,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const contactSubmitBtn = document.querySelector('.btn-submit');
         if (contactSubmitBtn) contactSubmitBtn.innerHTML = `${t.contact.enviar} <i class="fas fa-paper-plane"></i>`;
 
+        // Update interest select options
+        renderInterestOptions();
+
         // Footer
         const footerDescription = document.querySelector('.footer-details p');
         if (footerDescription) footerDescription.textContent = t.footer.description;
@@ -530,11 +533,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 img: 'gecko.png', price: 150
             },
             {
-                id: 17, name: 'Iguana Verde', category: 'reptil', origin: 'Centroamérica',
-                desc: 'Imponente reptil tropical de porte elegante, ideal para amantes de los grandes lagartos.',
-                feeding: 'Dieta 100% herbívora: hojas verdes oscuras, flores comestibles, frutas ocasionales.',
-                habitat: 'Recinto muy amplio con zonas altas para escalar, luz UVB intensa y temperatura de 30-35°C.',
-                img: 'iguana.png', price: 120
+                id: 17, name: 'Iguana Azul', category: 'reptil', origin: 'Islas Caimán',
+                desc: 'Una joya viviente de color turquesa. Es uno de los lagartos más raros y majestuosos del mundo por su tonalidad única.',
+                feeding: 'Dieta herbívora: Variedad de frutas, flores de hibisco, verduras y brotes tiernos.',
+                habitat: 'Bosque seco tropical con zonas rocosas para asolearse, humedad moderada y temperaturas de 28-32°C.',
+                img: 'iguana.png', price: 3500
             },
 
             // Mammals
@@ -686,11 +689,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 img: 'gecko.png', price: 150
             },
             {
-                id: 17, name: 'Green Iguana', category: 'reptil', origin: 'Central America',
-                desc: 'Impressive tropical reptile of elegant bearing, ideal for lovers of large lizards.',
-                feeding: '100% herbivorous diet: dark green leaves, edible flowers, occasional fruits.',
-                habitat: 'Very large enclosure with high areas for climbing, intense UVB light and temperature of 30-35°C.',
-                img: 'iguana.png', price: 120
+                id: 17, name: 'Blue Iguana', category: 'reptil', origin: 'Cayman Islands',
+                desc: 'A turquoise living jewel. One of the rarest and most majestic lizards in the world due to its unique hue.',
+                feeding: 'Herbivorous diet: Variety of fruits, hibiscus flowers, vegetables and tender shoots.',
+                habitat: 'Tropical dry forest with rocky areas for sunbathing, moderate humidity and temperatures of 28-32°C.',
+                img: 'iguana.png', price: 3500
             },
 
             // Mammals
@@ -812,6 +815,32 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         ]
     };
+
+    // --- Interest Select Population ---
+    function renderInterestOptions() {
+        const interestSelect = document.getElementById('interest-select');
+        if (!interestSelect) return;
+
+        const lang = currentLanguage || 'es';
+        const t = translations[lang];
+        const currentPlaceholder = t.contact.mascota_placeholder;
+
+        // Preserve placeholder
+        interestSelect.innerHTML = `<option disabled selected>${currentPlaceholder}</option>`;
+
+        // Add all animals from current language data
+        const animals = getAnimals();
+
+        // Sort animals by name for better UX
+        const sortedAnimals = [...animals].sort((a, b) => a.name.localeCompare(b.name));
+
+        sortedAnimals.forEach(animal => {
+            const option = document.createElement('option');
+            option.value = animal.name;
+            option.textContent = animal.name;
+            interestSelect.appendChild(option);
+        });
+    }
 
     // Get animals based on current language
     function getAnimals() {
@@ -1222,4 +1251,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize translations and render animals
     applyTranslations(currentLanguage);
     renderAnimals();
+    renderInterestOptions();
 });
