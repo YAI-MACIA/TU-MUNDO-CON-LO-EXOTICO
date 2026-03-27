@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
             nav: {
                 inicio: 'Inicio',
                 nosotros: 'Nosotros',
+                favoritos: 'Favoritos',
                 catalogo: 'Catálogo',
                 planes: 'Planes',
                 contacto: 'Contacto',
@@ -106,12 +107,18 @@ document.addEventListener('DOMContentLoaded', () => {
             catalog: {
                 tagline: 'Catálogo Premium',
                 title: 'Conoce a tus Próximos <span class="highlight">Compañeros</span>',
+                favoritos: 'Favoritos',
                 todos: 'Todos',
                 mamiferos: 'Mamíferos',
                 reptiles: 'Reptiles',
                 aracnidos: 'Arácnidos/Insectos',
                 anfibios: 'Anfibios/Aves',
                 ver_mas: 'Ver más animales'
+            },
+            favoritos: {
+                tagline: 'Selección Especial',
+                title: 'Nuestros <span class="highlight">Favoritos</span>',
+                subtitle: 'Los compañeros más exclusivos y queridos de nuestra colección, seleccionados por nuestros expertos.'
             },
             banner: {
                 title: '¿Buscas Asesoría Especializada?',
@@ -183,13 +190,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 newsletter: 'Newsletter',
                 newsletter_desc: 'Suscríbete para recibir noticias sobre nuevas llegadas.',
                 email_placeholder: 'Tu email',
-                derechos: '© 2026 Tu Mundo con lo Exótico. Todos los derechos reservados a Yai.'
+                derechos: '© 2026 Tu Mundo con lo Exótico. Todos los derechos reservados.'
             }
         },
         en: {
             nav: {
                 inicio: 'Home',
                 nosotros: 'About',
+                favoritos: 'Favorites',
                 catalogo: 'Catalog',
                 planes: 'Plans',
                 contacto: 'Contact',
@@ -218,12 +226,18 @@ document.addEventListener('DOMContentLoaded', () => {
             catalog: {
                 tagline: 'Premium Catalog',
                 title: 'Meet Your Next <span class="highlight">Companions</span>',
+                favoritos: 'Favorites',
                 todos: 'All',
                 mamiferos: 'Mammals',
                 reptiles: 'Reptiles',
                 aracnidos: 'Arachnids/Insects',
                 anfibios: 'Amphibians/Birds',
                 ver_mas: 'View more animals'
+            },
+            favoritos: {
+                tagline: 'Special Selection',
+                title: 'Our <span class="highlight">Favorites</span>',
+                subtitle: 'The most exclusive and beloved companions in our collection, handpicked by our experts.'
             },
             banner: {
                 title: 'Looking for Specialized Advice?',
@@ -307,6 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Navigation
         document.querySelector('a[href="#inicio"]') && (document.querySelector('a[href="#inicio"]').textContent = t.nav.inicio);
         document.querySelector('a[href="#nosotros"]') && (document.querySelector('a[href="#nosotros"]').textContent = t.nav.nosotros);
+        document.querySelectorAll('a[href="#favoritos"]').forEach(el => el.textContent = t.nav.favoritos);
         document.querySelector('a[href="#catalogo"]') && (document.querySelector('a[href="#catalogo"]').textContent = t.nav.catalogo);
         document.querySelector('a[href="#planes"]') && (document.querySelector('a[href="#planes"]').textContent = t.nav.planes);
         document.querySelector('a[href="#contacto"]') && (document.querySelector('a[href="#contacto"]').textContent = t.nav.contacto);
@@ -361,13 +376,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const searchInput = document.getElementById('animal-search');
         if (searchInput) searchInput.placeholder = t.search.placeholder;
 
-        // Filter buttons
+        // Filter buttons (0=Favoritos, 1=Todos, 2=Mamiferos, 3=Reptiles, 4=Aracnidos, 5=Anfibios)
         const filterBtns = document.querySelectorAll('.filter-btn');
-        if (filterBtns[0]) filterBtns[0].textContent = t.catalog.todos;
-        if (filterBtns[1]) filterBtns[1].textContent = t.catalog.mamiferos;
-        if (filterBtns[2]) filterBtns[2].textContent = t.catalog.reptiles;
-        if (filterBtns[3]) filterBtns[3].textContent = t.catalog.aracnidos;
-        if (filterBtns[4]) filterBtns[4].textContent = t.catalog.anfibios;
+        if (filterBtns[0]) filterBtns[0].innerHTML = `<span class="fav-btn-star">&#9733;</span> ${t.catalog.favoritos || 'Favoritos'}`;
+        if (filterBtns[1]) filterBtns[1].textContent = t.catalog.todos;
+        if (filterBtns[2]) filterBtns[2].textContent = t.catalog.mamiferos;
+        if (filterBtns[3]) filterBtns[3].textContent = t.catalog.reptiles;
+        if (filterBtns[4]) filterBtns[4].textContent = t.catalog.aracnidos;
+        if (filterBtns[5]) filterBtns[5].textContent = t.catalog.anfibios;
 
         // Banner
         const bannerTitle = document.querySelector('.banner-safari h2');
@@ -478,6 +494,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const footerBottom = document.querySelector('.footer-bottom p');
         if (footerBottom) footerBottom.textContent = t.footer.derechos;
 
+        // Favoritos Section
+        const favTagline = document.getElementById('fav-tagline');
+        if (favTagline && t.favoritos) favTagline.textContent = t.favoritos.tagline;
+
+        const favTitle = document.getElementById('fav-title');
+        if (favTitle && t.favoritos) favTitle.innerHTML = t.favoritos.title;
+
+        const favSubtitle = document.getElementById('fav-subtitle');
+        if (favSubtitle && t.favoritos) favSubtitle.textContent = t.favoritos.subtitle;
+
         // Update document language
         document.documentElement.lang = lang;
 
@@ -485,6 +511,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentSearchTerm || currentFilter !== 'all') {
             searchAnimals(currentSearchTerm, currentFilter);
         }
+
+        // Re-render favoritos in new language
+        renderFavoritos();
     }
 
     // Language selector
@@ -497,6 +526,47 @@ document.addEventListener('DOMContentLoaded', () => {
             applyTranslations(currentLanguage);
             // Re-render animals with new language
             renderAnimals(currentFilter);
+            renderFavoritos();
+        });
+    }
+
+    // --- Favoritos Data (IDs of the 6 favorite animals) ---
+    const FAVORITOS_IDS = [1, 10, 7, 21, 22, 25];
+    // Lemur, Zorro Fennec, Camaleon, Tigre Blanco, Gato Serval, Kinkaju
+
+    function renderFavoritos() {
+        const grid = document.getElementById('favoritos-grid');
+        if (!grid) return;
+
+        const animals = getAnimals();
+        const favAnimals = FAVORITOS_IDS.map(id => animals.find(a => a.id === id)).filter(Boolean);
+
+        grid.innerHTML = '';
+        favAnimals.forEach(animal => {
+            const card = document.createElement('div');
+            card.className = 'animal-card';
+            card.innerHTML = `
+                <div class="fav-star-badge" title="Favorito">
+                    <span style="color:#fff;font-size:1.1rem;">&#9733;</span>
+                </div>
+                <div class="animal-img" onclick="openAnimalModal(${animal.id})">
+                    <img src="${animal.img}" alt="${animal.name}" loading="lazy"
+                         onerror="this.src='https://loremflickr.com/600/400/wildlife?v=${animal.id}'">
+                    <span class="category-badge">${animal.category.toUpperCase()}</span>
+                </div>
+                <div class="animal-info">
+                    <h4>${animal.name}</h4>
+                    <p>${animal.desc}</p>
+                    <div class="card-footer">
+                        <span class="origin"><i class="fas fa-location-dot"></i> ${animal.origin}</span>
+                        <div class="cart-price-container">
+                            <span class="card-price">$${animal.price.toLocaleString()}</span>
+                            <button class="btn-add-cart" onclick="addToCart(${animal.id})"><i class="fas fa-cart-shopping"></i></button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
         });
     }
 
@@ -858,7 +928,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Search elements
     const searchInput = document.getElementById('animal-search');
     const clearSearchBtn = document.getElementById('clear-search');
-    let currentFilter = 'all';
+    let currentFilter = 'favoritos'; // Se establece Favoritos como filtro inicial por defecto
     let currentSearchTerm = '';
 
     // --- Search Functions ---
@@ -870,7 +940,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let filteredAnimals = animals;
 
         // Apply category filter
-        if (filter !== 'all') {
+        if (filter === 'favoritos') {
+            filteredAnimals = filteredAnimals.filter(a => FAVORITOS_IDS.includes(a.id));
+        } else if (filter !== 'all') {
             filteredAnimals = filteredAnimals.filter(a => a.category === filter);
         }
 
@@ -935,7 +1007,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('div');
             card.className = 'animal-card';
 
+            const isFav = FAVORITOS_IDS.includes(Number(animal.id));
             card.innerHTML = `
+                ${isFav ? `
+                <div class="fav-star-badge" title="Favorito" style="z-index: 20 !important;">
+                    <i class="fas fa-star"></i>
+                </div>` : ''}
                 <div class="animal-img" onclick="openAnimalModal(${animal.id})">
                     <img src="${animal.img}" alt="${animal.name}" loading="lazy" 
                          onerror="this.src='https://loremflickr.com/600/400/reptile?v=${animal.id}'">
@@ -1248,8 +1325,28 @@ document.addEventListener('DOMContentLoaded', () => {
     styleSheet.innerText = `.revealed { opacity: 1 !important; transform: translateY(0) !important; }`;
     document.head.appendChild(styleSheet);
 
-    // Initialize translations and render animals
-    applyTranslations(currentLanguage);
-    renderAnimals();
-    renderInterestOptions();
+    // --- Initialization ---
+    function init() {
+        applyTranslations(currentLanguage);
+        renderInterestOptions();
+
+        // Pequeño delay para asegurar que todas las dependencias y el DOM de los animales estén listos
+        setTimeout(() => {
+            renderAnimals('favoritos');
+
+            // Asegurar que el botón de favoritos esté marcado como activo
+            const favBtn = document.querySelector('.filter-btn[data-filter="favoritos"]');
+            if (favBtn) {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                favBtn.classList.add('active');
+            }
+        }, 150);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
 });
+

@@ -1882,7 +1882,86 @@ footer ul li a:hover {
     }
 }
 
+/* --- Favoritos Section --- */
+.favoritos-section {
+    background: linear-gradient(160deg, #fdfaf4 0%, #f0f7f6 100%);
+    border-top: 1px solid rgba(14, 110, 106, 0.08);
+    border-bottom: 1px solid rgba(14, 110, 106, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.favoritos-section::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.favoritos-section::after {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    left: -100px;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(14, 110, 106, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.fav-subtitle {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    max-width: 600px;
+    margin: 0 auto 20px;
+    line-height: 1.7;
+}
+
+/* Golden Star Badge */
+.fav-star-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    box-shadow: 0 4px 14px rgba(255, 180, 0, 0.55), 0 0 0 3px rgba(255, 215, 0, 0.25);
+    animation: starPulse 2.5s ease-in-out infinite;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.fav-star-badge i {
+    color: #fff;
+    font-size: 1rem !important;
+}
+
+.fav-star-badge i::before {
+    font-size: 1rem !important;
+}
+
+@keyframes starPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 4px 14px rgba(255, 180, 0, 0.55), 0 0 0 3px rgba(255, 215, 0, 0.25);
+    }
+
+    50% {
+        box-shadow: 0 4px 20px rgba(255, 180, 0, 0.8), 0 0 0 6px rgba(255, 215, 0, 0.15);
+    }
+}
+
 /* --- Animal List --- */
+
 .featured-star {
     position: absolute;
     top: 15px;
@@ -1946,6 +2025,14 @@ footer ul li a:hover {
     60% {
         transform: translateY(3px);
     }
+}
+
+.fav-btn-star {
+    color: #FFD700;
+    margin-right: 5px;
+    font-size: 1rem;
+    display: inline;
+    text-shadow: 0 1px 3px rgba(200, 150, 0, 0.4);
 }
 
 /* --- Animal Detail Modal --- */
@@ -2161,26 +2248,18 @@ footer ul li a:hover {
 
 .modal-footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     margin-top: 30px;
-    gap: 20px;
-    /* Space between price and button */
 }
 
 .modal-price {
-    font-size: 1.8rem;
-    /* Smaller and more balanced */
-    font-weight: 800;
-    color: var(--primary-dark);
-    font-family: 'Playfair Display', serif;
-    white-space: nowrap;
+    display: none;
 }
 
 #modal-add-btn {
-    flex: 1;
-    /* Button grows but respects the gap */
-    max-width: 250px;
+    width: 100%;
+    max-width: 300px;
     padding: 14px 25px;
     background: var(--primary);
     color: var(--white);
