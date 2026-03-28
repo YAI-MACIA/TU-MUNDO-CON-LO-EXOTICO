@@ -428,13 +428,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const checkoutBtn = document.querySelector('.btn-checkout');
         if (checkoutBtn) checkoutBtn.textContent = t.cart.checkout;
 
-        // Modal
-        const modalFeeding = document.querySelector('#modal-feeding');
-        if (modalFeeding) modalFeeding.parentElement.previousElementSibling.textContent = t.modal.alimentacion;
-
-        const modalHabitat = document.querySelector('#modal-habitat');
-        if (modalHabitat) modalHabitat.parentElement.previousElementSibling.textContent = t.modal.habitat_ideal;
-
         const modalAddBtn = document.querySelector('#modal-add-btn');
         if (modalAddBtn) modalAddBtn.textContent = t.cart.add;
 
