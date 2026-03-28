@@ -147,7 +147,6 @@ header {
 
 nav ul {
     display: flex;
-    flex-direction: column;
     list-style: none;
     gap: 35px;
     margin: 0;
@@ -2085,6 +2084,10 @@ footer ul li a:hover {
     .desktop-nav-actions,
     header nav {
         display: none;
+    }
+
+    nav ul {
+        flex-direction: column;
     }
 
     .mobile-nav {
