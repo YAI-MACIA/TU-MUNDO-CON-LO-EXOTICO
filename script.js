@@ -101,8 +101,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 why: '¿Por Qué?',
                 why_desc: 'Porque creemos que la convivencia con especies únicas transforma la perspectiva humana sobre la biodiversidad.',
                 especies: 'Especies',
+                especies_desc: 'Una selección rigurosa de biodiversidad exótica preservada con integridad.',
                 legales: 'Legales',
-                soporte: 'Soporte Veteriario'
+                legales_desc: 'Certificación internacional y ética de conservación en cada ejemplar.',
+                soporte: 'Soporte Veteriario',
+                soporte_desc: 'Asesoría experta permanente para el cuidado de tu santuario privado.',
             },
             catalog: {
                 tagline: 'Catálogo Premium',
@@ -113,7 +116,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 reptiles: 'Reptiles',
                 aracnidos: 'Arácnidos/Insectos',
                 anfibios: 'Anfibios/Aves',
-                ver_mas: 'Ver más animales'
+                ver_mas: 'Ver más animales',
+                mamifero: 'mamifero',
+                reptil: 'reptil',
+                aracnido: 'aracnido',
+                anfibio: 'anfibio',
+
             },
             favoritos: {
                 tagline: 'Selección Especial',
@@ -220,8 +228,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 why: 'Why?',
                 why_desc: 'Because we believe that coexistence with unique species transforms the human perspective on biodiversity.',
                 especies: 'Species',
+                especies_desc: 'A rigorous selection of exotic biodiversity preserved with integrity.',
                 legales: 'Legal',
-                soporte: 'Veterinary Support'
+                legales_desc: 'International certification and conservation ethics in each specimen.',
+                soporte: 'Veterinary Support',
+                soporte_desc: 'Permanent expert advice for the care of your private sanctuary.'
             },
             catalog: {
                 tagline: 'Premium Catalog',
@@ -232,7 +243,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 reptiles: 'Reptiles',
                 aracnidos: 'Arachnids/Insects',
                 anfibios: 'Amphibians/Birds',
-                ver_mas: 'View more animals'
+                ver_mas: 'View more animals',
+                mamifero: 'mammal',
+                reptil: 'reptile',
+                aracnido: 'arachnid',
+                anfibio: 'amphibian',
             },
             favoritos: {
                 tagline: 'Special Selection',
@@ -316,16 +331,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function applyTranslations(lang) {
         const t = translations[lang];
+        console.log(t.nav.inicio);
         if (!t) return;
 
         // Navigation
-        document.querySelector('a[href="#inicio"]') && (document.querySelector('a[href="#inicio"]').textContent = t.nav.inicio);
-        document.querySelector('a[href="#nosotros"]') && (document.querySelector('a[href="#nosotros"]').textContent = t.nav.nosotros);
+        document.querySelectorAll('a[href="#inicio"]').forEach(el => el.textContent = t.nav.inicio);
+        document.querySelectorAll('a[href="#nosotros"]').forEach(el => el.textContent = t.nav.nosotros);
         document.querySelectorAll('a[href="#favoritos"]').forEach(el => el.textContent = t.nav.favoritos);
-        document.querySelector('a[href="#catalogo"]') && (document.querySelector('a[href="#catalogo"]').textContent = t.nav.catalogo);
-        document.querySelector('a[href="#planes"]') && (document.querySelector('a[href="#planes"]').textContent = t.nav.planes);
-        document.querySelector('a[href="#contacto"]') && (document.querySelector('a[href="#contacto"]').textContent = t.nav.contacto);
-        document.querySelector('.nav-actions .btn-primary') && (document.querySelector('.nav-actions .btn-primary').textContent = t.nav.explorar);
+        document.querySelectorAll('a[href="#catalogo"]').forEach(el => el.textContent = t.nav.catalogo);
+        document.querySelectorAll('a[href="#planes"]').forEach(el => el.textContent = t.nav.planes);
+        document.querySelectorAll('a[href="#contacto"]').forEach(el => el.textContent = t.nav.contacto);
+        document.querySelectorAll('.nav-actions .btn-primary').forEach(el => el.textContent = t.nav.explorar);
 
         // Hero Section
         const heroBadge = document.querySelector('.hero .badge');
@@ -365,6 +381,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (statLabels[1]) statLabels[1].textContent = t.about.legales;
         if (statLabels[2]) statLabels[2].textContent = t.about.soporte;
 
+        const descLabels = document.querySelectorAll('.stat-card .stat-desc');
+        if (descLabels[0]) descLabels[0].textContent = t.about.especies_desc;
+        if (descLabels[1]) descLabels[1].textContent = t.about.legales_desc;
+        if (descLabels[2]) descLabels[2].textContent = t.about.soporte_desc;
+
         // Catalog Section
         const catalogTagline = document.querySelector('.catalog-section .section-tagline');
         if (catalogTagline) catalogTagline.textContent = t.catalog.tagline;
@@ -384,6 +405,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (filterBtns[3]) filterBtns[3].textContent = t.catalog.reptiles;
         if (filterBtns[4]) filterBtns[4].textContent = t.catalog.aracnidos;
         if (filterBtns[5]) filterBtns[5].textContent = t.catalog.anfibios;
+        if (filterBtns[2]) filterBtns[2].setAttribute('data-filter', t.catalog.mamifero);
+        if (filterBtns[3]) filterBtns[3].setAttribute('data-filter', t.catalog.reptil);
+        if (filterBtns[4]) filterBtns[4].setAttribute('data-filter', t.catalog.aracnido);
+        if (filterBtns[5]) filterBtns[5].setAttribute('data-filter', t.catalog.anfibio);
 
         // Banner
         const bannerTitle = document.querySelector('.banner-safari h2');
@@ -724,35 +749,35 @@ document.addEventListener('DOMContentLoaded', () => {
         en: [
             // Reptiles
             {
-                id: 7, name: 'Panther Chameleon', category: 'reptil', origin: 'Madagascar',
+                id: 7, name: 'Panther Chameleon', category: 'reptile', origin: 'Madagascar',
                 desc: 'A living spectrum of colors that change with environment and emotion. Master of camouflage.',
                 feeding: 'Live insects, mainly crickets, locusts and silkworms.',
                 habitat: 'Vertical terrarium with abundant vegetation, high humidity (70%) and climbing branches.',
                 img: 'camaleon.png', price: 450
             },
             {
-                id: 9, name: 'Bearded Dragon', category: 'reptil', origin: 'Australia',
+                id: 9, name: 'Bearded Dragon', category: 'reptile', origin: 'Australia',
                 desc: 'Docile, majestic and with a surprising personality for a companion reptile.',
                 feeding: 'Omnivorous diet: Green leaf vegetables, fruits and variety of insects.',
                 habitat: 'Spacious desert terrarium with UVB light, heat zone at 35-40°C and rocks.',
                 img: 'dragon.png', price: 180
             },
             {
-                id: 14, name: 'Ball Python Morph', category: 'reptil', origin: 'Africa',
+                id: 14, name: 'Ball Python Morph', category: 'reptile', origin: 'Africa',
                 desc: 'Hypnotic genetic patterns and nacreous shine. A docile collection jewel.',
                 feeding: 'Appropriately sized rodents (mice or rats) every 7-10 days.',
                 habitat: 'Horizontal terrarium with dark shelters and a temperate zone at 30-32°C.',
                 img: 'piton.png', price: 320
             },
             {
-                id: 16, name: 'Crested Gecko', category: 'reptil', origin: 'New Caledonia',
+                id: 16, name: 'Crested Gecko', category: 'reptile', origin: 'New Caledonia',
                 desc: 'Velvety skin and galactic eyes. A miniature dragon that doesn\'t require insects.',
                 feeding: 'Commercial fruit preparations and occasionally small insects.',
                 habitat: 'Vertical terrarium with plants, moderate humidity and temperatures of 22-26°C.',
                 img: 'gecko.png', price: 150
             },
             {
-                id: 17, name: 'Blue Iguana', category: 'reptil', origin: 'Cayman Islands',
+                id: 17, name: 'Blue Iguana', category: 'reptile', origin: 'Cayman Islands',
                 desc: 'A turquoise living jewel. One of the rarest and most majestic lizards in the world due to its unique hue.',
                 feeding: 'Herbivorous diet: Variety of fruits, hibiscus flowers, vegetables and tender shoots.',
                 habitat: 'Tropical dry forest with rocky areas for sunbathing, moderate humidity and temperatures of 28-32°C.',
@@ -761,98 +786,98 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Mammals
             {
-                id: 1, name: 'Ring-tailed Lemur', category: 'mamifero', origin: 'Madagascar',
+                id: 1, name: 'Ring-tailed Lemur', category: 'mammal', origin: 'Madagascar',
                 desc: 'Curious and charismatic, the most famous explorer of the jungle.',
                 feeding: 'Tropical fruits, vegetables, leaves and occasionally tree resin.',
                 habitat: 'Large enclosures with height, ropes, trunks and direct sunlight access.',
                 img: 'lemur_profile_1774322019389.png', price: 3500
             },
             {
-                id: 10, name: 'Fennec Fox', category: 'mamifero', origin: 'Sahara',
+                id: 10, name: 'Fennec Fox', category: 'mammal', origin: 'Sahara',
                 desc: 'Small and charismatic desert fox with emblematic ears.',
                 feeding: 'Mixed diet: Insects, small rodents, eggs, fruits and berries.',
                 habitat: 'Sandy enclosure with space to dig, warm and dry climate with good ventilation.',
                 img: 'Zorrofenec.png', price: 1200
             },
             {
-                id: 12, name: 'Capuchin Monkey', category: 'mamifero', origin: 'South America',
+                id: 12, name: 'Capuchin Monkey', category: 'mammal', origin: 'South America',
                 desc: 'Pure intelligence and charisma in the most versatile primate.',
                 feeding: 'Fresh fruits, nuts, seeds, sprouts and insects for protein.',
                 habitat: 'Extremely spacious simulated jungle habitat with ropes and cognitive enrichment.',
                 img: 'Mono.png', price: 4500
             },
             {
-                id: 4, name: 'Premium Sable Ferret', category: 'mamifero', origin: 'Europe',
+                id: 4, name: 'Premium Sable Ferret', category: 'mammal', origin: 'Europe',
                 desc: 'Playful energy and elegance for the modern home.',
                 feeding: 'Specific high-protein animal ferret food (strict carnivore).',
                 habitat: 'Spacious multi-level cage and daily time outside it in safe environment.',
                 img: 'sable_ferret_profile_1774322347693.png', price: 250
             },
             {
-                id: 18, name: 'Red Kangaroo', category: 'mamifero', origin: 'Australia',
+                id: 18, name: 'Red Kangaroo', category: 'mammal', origin: 'Australia',
                 desc: 'Australian icon: strong, agile and with noble gaze. A unique experience as a companion.',
                 feeding: 'Fresh grass, hay, eucalyptus leaves and varied vegetables.',
                 habitat: 'Spacious outdoor areas with soft ground, covered shelter and free jumping zone.',
                 img: 'red_kangaroo_profile_1774322242870.png', price: 5800
             },
             {
-                id: 21, name: 'White Tiger', category: 'mamifero', origin: 'India',
+                id: 21, name: 'White Tiger', category: 'mammal', origin: 'India',
                 desc: 'A majestic feline with snow-white fur and black stripes, symbol of supreme elegance.',
                 feeding: 'Strict carnivorous diet, large daily consumptions of lean meats.',
                 habitat: 'Reinforced sanctuary of hundreds of hectares with advanced environmental enrichment.',
                 img: 'tigre albino.png', price: 45000
             },
             {
-                id: 22, name: 'Serval Cat', category: 'mamifero', origin: 'Africa',
+                id: 22, name: 'Serval Cat', category: 'mammal', origin: 'Africa',
                 desc: 'The feline with the longest ears and legs. Enigmatic attitude and wild beauty.',
                 feeding: 'Poultry, rodents and special feline supplements.',
                 habitat: 'Escape-proof high outdoor enclosures with jumping platforms and grass.',
                 img: 'serval.png', price: 8500
             },
             {
-                id: 23, name: 'Asian Pangolin', category: 'mamifero', origin: 'Asia',
+                id: 23, name: 'Asian Pangolin', category: 'mammal', origin: 'Asia',
                 desc: 'Nature\'s armored wonder. Shy, docile and with mystical appearance.',
                 feeding: 'Ants, termites and special mixtures for specialized terrestrial mammals.',
                 habitat: 'Forested areas with deep soil for digging, temperate climate and high privacy.',
                 img: 'pangolin.png', price: 12000
             },
             {
-                id: 24, name: 'Sugar Glider', category: 'mamifero', origin: 'Australia',
+                id: 24, name: 'Sugar Glider', category: 'mammal', origin: 'Australia',
                 desc: 'Diminutive flying marsupial that forms inseparable bonds with its caregivers.',
                 feeding: 'Nectar, sweet sap, ripe fruits and small insects.',
                 habitat: 'Very high aviary-type cages with vines and fabrics for swinging and jumping.',
                 img: 'petauro.png', price: 400
             },
             {
-                id: 25, name: 'Kinkajou', category: 'mamifero', origin: 'Central America',
+                id: 25, name: 'Kinkajou', category: 'mammal', origin: 'Central America',
                 desc: 'Known as the "honey bear", it\'s playful, nocturnal and extremely affectionate.',
                 feeding: 'Figs, honey, flower nectar and variety of tropical fruits.',
                 habitat: 'Enriched jungle-like environment, with climbable trunks and dark areas for sleeping.',
                 img: 'kinkaju.png', price: 2800
             },
             {
-                id: 26, name: 'Meerkat Family', category: 'mamifero', origin: 'Kalahari',
+                id: 26, name: 'Meerkat Family', category: 'mammal', origin: 'Kalahari',
                 desc: 'Desert sentinels. Delivered in small family to not break their bonds.',
                 feeding: 'Insects, roots, scorpions and small reptiles or mouse pups.',
                 habitat: 'Closed and warm enclosure with firm ground that supports their shelter tunnels.',
                 img: 'suricatas.png', price: 1600
             },
             {
-                id: 27, name: 'African Hedgehog', category: 'mamifero', origin: 'Central Africa',
+                id: 27, name: 'African Hedgehog', category: 'mammal', origin: 'Central Africa',
                 desc: 'Small nocturnal companions, with adorable spines and curious snout.',
                 feeding: 'High-quality cat food, occasional live insects (worms).',
                 habitat: 'Smooth closed terrarium at constant 25°C with safe exercise wheel.',
                 img: 'erizo.png', price: 150
             },
             {
-                id: 28, name: 'Reticulated Giraffe Calf', category: 'mamifero', origin: 'African Savanna',
+                id: 28, name: 'Reticulated Giraffe Calf', category: 'mammal', origin: 'African Savanna',
                 desc: 'The gentlest giant. Their geometric patterns are unique digital fingerprints.',
                 feeding: 'Acacia foliage at height, base hay and browser supplements.',
                 habitat: 'Extensive ranch-style facilities with warm climate and level drinkers.',
                 img: 'jirafa.png', price: 65000
             },
             {
-                id: 29, name: 'Arqui\'s Bitch Horse', category: 'mamifero', origin: 'Spain',
+                id: 29, name: 'Arqui\'s Bitch Horse', category: 'mammal', origin: 'Spain',
                 desc: 'A thoroughbred with majestic mane, brilliant intelligence and imposing royal bearing.',
                 feeding: 'High-energy grass, oats, select hay and forage.',
                 habitat: 'Premium stables with immediate access to open trotting fields.',
@@ -861,7 +886,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Arachnids
             {
-                id: 20, name: 'Australian Blue Tarantula', category: 'aracnido', origin: 'Australia',
+                id: 20, name: 'Australian Blue Tarantula', category: 'arachnid', origin: 'Australia',
                 desc: 'Electric blue iridescence jewel. The most spectacular and coveted by collectors.',
                 feeding: 'Live insects: crickets, Dubia cockroaches and mealworms every 1-2 weeks.',
                 habitat: 'Deep substrate terrarium for digging, poor ventilation and partial darkness.',
@@ -870,7 +895,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Amphibians
             {
-                id: 5, name: 'Mexican Axolotl', category: 'anfibio', origin: 'Mexico',
+                id: 5, name: 'Mexican Axolotl', category: 'amphibian', origin: 'Mexico',
                 desc: 'Regenerative biological wonder with an eternal smile.',
                 feeding: 'Earthworms, tubifex, artemia and specific pellets for axolotls.',
                 habitat: 'Cold water aquarium (16-20°C) without strong current, fine sand bottom.',
