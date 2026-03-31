@@ -2502,6 +2502,18 @@ footer ul li a:hover {
         margin-bottom: 20px !important;
     }
 
+    .pricing-grid {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+        padding: 0 10px !important;
+    }
+
+    .price-card {
+        margin: 0 auto !important;
+        max-width: 400px !important;
+        width: 100% !important;
+    }
+
     .animals-grid {
         display: grid !important;
         grid-template-columns: 1fr !important;
