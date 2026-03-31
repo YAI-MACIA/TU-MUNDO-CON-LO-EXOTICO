@@ -207,7 +207,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 newsletter: 'Newsletter',
                 newsletter_desc: 'Suscríbete para recibir noticias sobre nuevas llegadas.',
                 email_placeholder: 'Tu email',
-                derechos: '© 2026 Tu Mundo con lo Exótico. Todos los derechos reservados.'
+                derechos: '© 2026 Tu Mundo con lo Exótico. Todos los derechos reservados.',
+                desarrollado: 'Desarrollado y diseñado por Yai',
             }
         },
         en: {
@@ -1035,7 +1036,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         renderFilteredAnimals(filteredAnimals);
-        
+
         // Pasamos TODOS los animales a renderLocationOptions para que el filtro
         // siempre muestre todos los países disponibles en la base de datos, 
         // tal como solicita el usuario.
@@ -1382,7 +1383,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const lang = currentLanguage || 'es';
         const t = translations[lang];
         const currentValue = locationFilterSelect.value;
-        
+
         // Si hay animales disponibles del filtro superior, los usamos. 
         // Si no (porque el filtro de precio/búsqueda mató el resultado), usamos todos para que el usuario pueda volver a filtrar.
         const animals = (availableAnimals && availableAnimals.length > 0) ? availableAnimals : getAnimals();
