@@ -159,23 +159,28 @@ header {
 /* Estilo del texto del logo */
 .logo-text {
     font-family: 'Playfair Display', serif;
-    /* Manteniendo la tipografía del proyecto */
     font-weight: bold;
     font-size: 1.5rem;
-    line-height: 1.2;
-    display: flex;
-    flex-direction: column;
+    line-height: normal;
+    display: flex !important;
+    flex-direction: row !important;
+    /* Linear layout */
+    align-items: center !important;
+    gap: 8px !important;
 }
 
 .text-white {
     color: #E4D7C2 !important;
     /* El color crema de tu paleta */
-    display: block !important;
+    display: inline-block !important;
+    white-space: nowrap;
 }
 
 .text-orange {
     color: #BF794F !important;
     /* El color naranja/terracota */
+    display: inline-block !important;
+    white-space: nowrap;
 }
 
 .branch-icon {
@@ -1109,7 +1114,7 @@ nav a:hover::after {
    Banner
 ========================= */
 .banner-safari {
-    background: linear-gradient(135deg, rgba(14, 110, 106, 0.9), rgba(224, 122, 95, 0.6)), url('https://images.unsplash.com/photo-1544979592-748926955743?q=80&w=2000') center/cover fixed;
+    background: linear-gradient(135deg, rgba(20, 35, 28, 0.9), rgba(136, 79, 49, 0.6)), url('https://images.unsplash.com/photo-1544979592-748926955743?q=80&w=2000') center/cover fixed;
     padding: 120px 20px;
     text-align: center;
     color: var(--white);
@@ -1493,7 +1498,7 @@ footer h4 {
     font-family: 'Inter', sans-serif;
     font-size: 1.2rem;
     margin-bottom: 25px;
-    color: var(--primary);
+    color: var(--white);
 }
 
 footer ul {
