@@ -90,7 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: 'Encuentra lo <span class="text-gradient">Inimaginable</span>',
                 subtitle: 'Conéctate con la naturaleza más rara del planeta. Más de 20 especies exóticas bajo el cuidado más profesional y ético del mercado.',
                 coleccion: 'Ver Colección',
-                historia: 'Nuestra Historia'
+                historia: 'Nuestra Historia',
+                desliza: 'Desliza'
             },
             about: {
                 tagline: ' ACERCA DE NOSOTROS  ',
@@ -233,7 +234,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: 'Find the <span class="text-gradient">Unimaginable</span>',
                 subtitle: 'Connect with the rarest nature on the planet. More than 20 exotic species under the most professional and ethical care in the market.',
                 coleccion: 'View Collection',
-                historia: 'Our Story'
+                historia: 'Our Story',
+                desliza: 'Scroll'
             },
             about: {
                 tagline: 'About us',
@@ -391,6 +393,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const heroButtons = document.querySelectorAll('.hero-buttons a');
         if (heroButtons[0]) heroButtons[0].textContent = t.hero.coleccion;
         if (heroButtons[1]) heroButtons[1].textContent = t.hero.historia;
+
+        const scrollText = document.querySelector('.scroll-indicator span');
+        if (scrollText) scrollText.textContent = t.hero.desliza;
 
         // About Section
         const aboutTagline = document.querySelector('.about-section .section-tagline');
