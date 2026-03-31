@@ -203,12 +203,18 @@ document.addEventListener('DOMContentLoaded', () => {
             footer: {
                 description: 'Pasión por la biodiversidad. Cuidado ético y responsable de especies exóticas de todo el mundo.',
                 navegacion: 'Navegación',
+                desarrollado: 'Desarrollado y diseñado por Yai',
                 legal: 'Legal',
-                newsletter: 'Newsletter',
+                newsletter: 'Suscríbete',
                 newsletter_desc: 'Suscríbete para recibir noticias sobre nuevas llegadas.',
                 email_placeholder: 'Tu email',
                 derechos: '© 2026 Tu Mundo con lo Exótico. Todos los derechos reservados.',
-                desarrollado: 'Desarrollado y diseñado por Yai',
+                legal_items: {
+                    terminos: 'Términos y Condiciones',
+                    privacidad: 'Política de Privacidad',
+                    waza: 'Certificaciones WAZA',
+                    permisos: 'Permisos Ambientales'
+                }
             }
         },
         en: {
@@ -343,7 +349,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 newsletter: 'Newsletter',
                 newsletter_desc: 'Subscribe to receive news about new arrivals.',
                 email_placeholder: 'Your email',
-                derechos: '© 2026 Your World with the Exotic. All rights reserved to Yai.'
+                derechos: '© 2026 Your World with the Exotic. All rights reserved.',
+                desarrollado: 'Developed and designed by Yai',
+                legal_items: {
+                    terminos: 'Terms & Conditions',
+                    privacidad: 'Privacy Policy',
+                    waza: 'WAZA Certifications',
+                    permisos: 'Environmental Permits'
+                }
             }
         }
     };
@@ -543,8 +556,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const footerTitles = document.querySelectorAll('.footer-links h4, .footer-legal h4, .footer-newsletter h4');
         if (footerTitles[0]) footerTitles[0].textContent = t.footer.navegacion;
-        if (footerTitles[1]) footerTitles[1].textContent = t.footer.legal;
-        if (footerTitles[2]) footerTitles[2].textContent = t.footer.newsletter;
+        const footerNames = document.querySelectorAll('.footer-links h4, .footer-legal h4, .footer-newsletter h4');
+        if (footerNames[0]) footerNames[0].textContent = t.footer.navegacion;
+        if (footerNames[1]) footerNames[1].textContent = t.footer.legal;
+        if (footerNames[2]) footerNames[2].textContent = t.footer.newsletter;
 
         const footerNewsletterDesc = document.querySelector('.footer-newsletter p');
         if (footerNewsletterDesc) footerNewsletterDesc.textContent = t.footer.newsletter_desc;
@@ -552,8 +567,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const footerEmailInput = document.querySelector('.newsletter-input input');
         if (footerEmailInput) footerEmailInput.placeholder = t.footer.email_placeholder;
 
+        // Legal Links
+        const legalLinks = document.querySelectorAll('.footer-legal ul li a');
+        if (legalLinks[0]) legalLinks[0].textContent = t.footer.legal_items.terminos;
+        if (legalLinks[1]) legalLinks[1].textContent = t.footer.legal_items.privacidad;
+        if (legalLinks[2]) legalLinks[2].textContent = t.footer.legal_items.waza;
+        if (legalLinks[3]) legalLinks[3].textContent = t.footer.legal_items.permisos;
+
         const footerBottom = document.querySelector('.footer-bottom p');
         if (footerBottom) footerBottom.textContent = t.footer.derechos;
+
+        const footerDeveloped = document.getElementById('t-desarrollado');
+        if (footerDeveloped) footerDeveloped.textContent = t.footer.desarrollado;
 
         // Favoritos Section
         const favTagline = document.getElementById('fav-tagline');
