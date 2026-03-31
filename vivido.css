@@ -497,7 +497,7 @@ nav a:hover::after {
 }
 
 .btn-light {
-    background: var(--white);
+    background: #BF794F;
     color: var(--primary);
     border: none;
     padding: 15px 40px;

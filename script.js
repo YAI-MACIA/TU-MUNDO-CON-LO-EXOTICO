@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    window.showingAllAnimals = false;
 
     // --- Mobile Menu Toggle ---
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
@@ -498,6 +499,31 @@ document.addEventListener('DOMContentLoaded', () => {
         if (planButtons[0]) planButtons[0].textContent = t.pricing.elegir;
         if (planButtons[1]) planButtons[1].textContent = t.pricing.suscribir;
         if (planButtons[2]) planButtons[2].textContent = t.pricing.elegir;
+
+        // Pricing Features Translation
+        const allFeatureLists = document.querySelectorAll('.price-card .features');
+        if (allFeatureLists.length >= 3) {
+            // Plan 1 Features
+            const f1 = allFeatureLists[0].querySelectorAll('li');
+            if (f1[0]) f1[0].innerHTML = `<i class="fas fa-check"></i> ${t.pricing.features.chequeo}`;
+            if (f1[1]) f1[1].innerHTML = `<i class="fas fa-check"></i> ${t.pricing.features.guia}`;
+            if (f1[2]) f1[2].innerHTML = `<i class="fas fa-check"></i> ${t.pricing.features.soporte_chat}`;
+            if (f1[3]) f1[3].innerHTML = `<i class="fas fa-times"></i> ${t.pricing.features.visita}`;
+
+            // Plan 2 Features
+            const f2 = allFeatureLists[1].querySelectorAll('li');
+            if (f2[0]) f2[0].innerHTML = `<i class="fas fa-check"></i> ${t.pricing.features.visita_veterinario}`;
+            if (f2[1]) f2[1].innerHTML = `<i class="fas fa-check"></i> ${t.pricing.features.kit}`;
+            if (f2[2]) f2[2].innerHTML = `<i class="fas fa-check"></i> ${t.pricing.features.soporte_247}`;
+            if (f2[3]) f2[3].innerHTML = `<i class="fas fa-check"></i> ${t.pricing.features.seguro}`;
+
+            // Plan 3 Features
+            const f3 = allFeatureLists[2].querySelectorAll('li');
+            if (f3[0]) f3[0].innerHTML = `<i class="fas fa-check"></i> ${t.pricing.features.cuidado}`;
+            if (f3[1]) f3[1].innerHTML = `<i class="fas fa-check"></i> ${t.pricing.features.habitat}`;
+            if (f3[2]) f3[2].innerHTML = `<i class="fas fa-check"></i> ${t.pricing.features.entrenador}`;
+            if (f3[3]) f3[3].innerHTML = `<i class="fas fa-check"></i> ${t.pricing.features.cobertura}`;
+        }
 
         // Cart
         const cartTitle = document.querySelector('.cart-header h3');
@@ -1021,21 +1047,33 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentLocation = 'all';
 
     // --- Search Functions ---
-    function searchAnimals(searchTerm, filter = 'all') {
-        currentSearchTerm = searchTerm.toLowerCase().trim();
-        currentFilter = filter;
+    function searchAnimals(searchTerm, filter) {
+        // Update states if parameters are provided
+        if (searchTerm !== undefined) currentSearchTerm = searchTerm.toLowerCase().trim();
+        if (filter !== undefined) currentFilter = filter;
 
         const animals = getAnimals();
         let filteredAnimals = animals;
 
-        // Apply category filter
-        if (filter === 'favoritos') {
-            filteredAnimals = filteredAnimals.filter(a => FAVORITOS_IDS.includes(a.id));
-        } else if (filter !== 'all') {
-            filteredAnimals = filteredAnimals.filter(a => a.category === filter);
+        // 1. Filtrar por Categoría
+        // Si el usuario está usando el buscador o los filtros de precio/lugar, 
+        // ampliamos la búsqueda a "all" para que encuentre lo que busca, 
+        // a menos que explícitamente quiera ver solo sus favoritos.
+        const isManuallyFiltering = currentSearchTerm || currentMinPrice || currentMaxPrice || (currentLocation && currentLocation !== 'all');
+
+        let activeCategory = currentFilter;
+        // Si hay filtros manuales activos y estamos en "favoritos", buscamos en "all" para no limitar al usuario
+        if (isManuallyFiltering && activeCategory === 'favoritos') {
+            activeCategory = 'all';
         }
 
-        // Apply search filter
+        if (activeCategory === 'favoritos') {
+            filteredAnimals = filteredAnimals.filter(a => FAVORITOS_IDS.includes(a.id));
+        } else if (activeCategory !== 'all' && activeCategory !== '') {
+            filteredAnimals = filteredAnimals.filter(a => a.category === activeCategory);
+        }
+
+        // 2. Filtrar por Texto
         if (currentSearchTerm) {
             filteredAnimals = filteredAnimals.filter(animal => {
                 return animal.name.toLowerCase().includes(currentSearchTerm) ||
@@ -1045,7 +1083,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Apply price filter
+        // 3. Filtrar por Precio
         const minPrice = parseFloat(currentMinPrice);
         const maxPrice = parseFloat(currentMaxPrice);
         if (!isNaN(minPrice)) {
@@ -1055,12 +1093,15 @@ document.addEventListener('DOMContentLoaded', () => {
             filteredAnimals = filteredAnimals.filter(animal => animal.price <= maxPrice);
         }
 
-        // Apply location filter
+        // 4. Filtrar por Lugar
         if (currentLocation && currentLocation !== 'all') {
             filteredAnimals = filteredAnimals.filter(animal => animal.origin === currentLocation);
         }
 
         renderFilteredAnimals(filteredAnimals);
+
+        // Update location options from the total context
+        renderLocationOptions(animals);
 
         // Pasamos TODOS los animales a renderLocationOptions para que el filtro
         // siempre muestre todos los países disponibles en la base de datos, 
@@ -1090,11 +1131,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderFilteredAnimals(filteredAnimals) {
         animalsGrid.innerHTML = '';
 
-        // On mobile, show only featured animals unless searching or filtering or user already clicked "Ver más"
+        // On mobile, show only featured animals UNLESS there's an active search or filter
         let animalsToShow = filteredAnimals;
         let showMoreButton = false;
 
-        if (isMobile() && !currentSearchTerm && currentFilter === 'all' && !window.showingAllAnimals) {
+        const isFiltering = currentSearchTerm || currentMinPrice || currentMaxPrice || (currentLocation && currentLocation !== 'all') || (currentFilter !== 'all' && currentFilter !== 'favoritos');
+
+        if (isMobile() && !isFiltering && !window.showingAllAnimals) {
             animalsToShow = getFeaturedAnimals();
             if (filteredAnimals.length > 4) {
                 showMoreButton = true;
@@ -1159,11 +1202,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.showAllAnimals = () => {
-        const animals = getAnimals();
-        renderFilteredAnimals(animals);
-
-        // Remove the "Ver más" button functionality by setting a flag
         window.showingAllAnimals = true;
+        searchAnimals(currentSearchTerm, currentFilter);
 
         // Smooth scroll to animals grid instead of top of section
         const animalsGrid = document.getElementById('animals-grid');
@@ -1394,6 +1434,11 @@ document.addEventListener('DOMContentLoaded', () => {
             currentLocation = 'all';
 
             searchInput.value = '';
+
+            // Completly reset all states
+            currentSearchTerm = '';
+            currentFilter = 'all';
+
             searchAnimals('', 'all');
 
             filterBtns.forEach(b => b.classList.remove('active'));
@@ -1401,6 +1446,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (allBtn) allBtn.classList.add('active');
         });
     }
+
+    window.showAllAnimals = function () {
+        window.showingAllAnimals = true;
+        searchAnimals(currentSearchTerm, currentFilter);
+    };
 
     window.renderLocationOptions = function (availableAnimals) {
         if (!locationFilterSelect) return;
