@@ -1,23 +1,29 @@
-/* =========================
+﻿/* =========================
    Base / Reset / Variables
 ========================= */
 :root {
-    --primary: #0E6E6A;
-    --primary-dark: #0A4D4A;
-    --primary-light: #159C96;
-    --secondary: #E07A5F;
-    --accent: #E8A57A;
-    --accent2: #D1654B;
-    --background: #F4EFE6;
+    --primary: #14231C;
+    /* Evergreen - Dark & Deep */
+    --primary-dark: #0A1410;
+    --primary-light: #3E483D;
+    /* Charcoal Brown */
+    --secondary: #8B734F;
+    /* Olive Wood - Warm & Natural */
+    --accent: #884F31;
+    /* Saddle Brown - Earthy Accent */
+    --accent2: #53544C;
+    /* Charcoal - Neutral Balance */
+    --background: #F4F2EE;
+    /* Soft Creamy background to let colors pop */
     --card-bg: #FFFFFF;
-    --glass-bg: rgba(14, 110, 106, 0.95);
-    --text: #1B2A29;
+    --glass-bg: rgba(20, 35, 28, 0.95);
+    --text: #3E483D;
     --text-white: #FFFFFF;
-    --text-muted: #647B7A;
+    --text-muted: #53544C;
     --white: #FFFFFF;
     --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    --shadow: 0 10px 30px rgba(14, 110, 106, 0.1);
-    --glow: 0 0 25px rgba(224, 122, 95, 0.35);
+    --shadow: 0 10px 30px rgba(20, 35, 28, 0.1);
+    --glow: 0 0 25px rgba(139, 115, 79, 0.35);
 }
 
 * {
@@ -122,22 +128,68 @@ header {
 }
 
 .header-container {
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 10px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.logo-icon {
-    font-size: 1.8rem;
-    color: var(--secondary);
+/* Ajuste de la imagen */
+.logo-image {
+    height: 60px !important;
+    /* Ajusta el tamaño según necesites */
+    width: auto !important;
+    margin-right: 15px !important;
+    display: block !important;
+    /* Asegura que se renderice como bloque */
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
-.logo-text .highlight {
-    color: var(--secondary);
-    text-shadow: none;
+/* Alineación del logo y el texto */
+.logo_savannah {
+    display: flex !important;
+    align-items: center !important;
+    text-decoration: none !important;
+    z-index: 9999 !important;
+}
+
+/* Estilo del texto del logo */
+.logo-text {
+    font-family: 'Playfair Display', serif;
+    /* Manteniendo la tipografía del proyecto */
+    font-weight: bold;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    display: flex;
+    flex-direction: column;
+}
+
+.text-white {
+    color: #E4D7C2 !important;
+    /* El color crema de tu paleta */
+    display: block !important;
+}
+
+.text-orange {
+    color: #BF794F !important;
+    /* El color naranja/terracota */
+}
+
+.branch-icon {
+    font-size: 0.9rem !important;
+    opacity: 0.8;
+    transform: rotate(15deg);
+}
+
+.footer-logo {
+    margin-bottom: 25px;
+}
+
+.footer-logo .logo-world {
+    color: var(--text-white);
 }
 
 .desktop-nav,
@@ -889,6 +941,7 @@ nav a:hover::after {
     .catalog-content {
         flex-direction: column;
     }
+
     .catalog-sidebar {
         flex: none;
         width: 100%;
@@ -958,7 +1011,8 @@ nav a:hover::after {
     position: absolute;
     bottom: 15px;
     left: 15px;
-    background: rgba(14, 110, 106, 0.85); /* Primary glass */
+    background: rgba(14, 110, 106, 0.85);
+    /* Primary glass */
     color: var(--white);
     padding: 6px 14px;
     border-radius: 12px;
@@ -2568,7 +2622,7 @@ footer ul li a:hover {
         gap: 15px;
         text-align: center;
     }
-    
+
     .modal-price {
         margin-right: 0;
         margin-bottom: 5px;
