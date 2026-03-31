@@ -210,8 +210,39 @@
                 </div>
             </div>
 
-            <div class="catalog-grid" id="animals-grid">
-                <!-- Data will be populated by JS -->
+            <div class="catalog-content">
+                <aside class="catalog-sidebar" id="catalog-sidebar">
+                    <div class="sidebar-block">
+                        <h4 id="filter-price-title">Rango de Precio</h4>
+                        <div class="price-inputs">
+                            <div class="price-field">
+                                <span>Min</span>
+                                <input type="number" id="price-min" placeholder="0" min="0">
+                            </div>
+                            <div class="price-field">
+                                <span>Max</span>
+                                <input type="number" id="price-max" placeholder="Max" min="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar-block">
+                        <h4 id="filter-location-title">Origen / Lugar</h4>
+                        <div class="select-wrapper">
+                            <select id="location-filter">
+                                <option value="all">Todos los lugares</option>
+                            </select>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <button id="apply-filters" class="btn-apply">Aplicar Filtros</button>
+                    <button id="reset-filters" class="btn-reset">Limpiar Todo</button>
+                </aside>
+
+                <div class="catalog-main">
+                    <div class="catalog-grid" id="animals-grid">
+                        <!-- Data will be populated by JS -->
+                    </div>
+                </div>
             </div>
         </div>
     </section>

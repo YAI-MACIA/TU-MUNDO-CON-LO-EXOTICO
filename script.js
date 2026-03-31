@@ -123,6 +123,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 anfibio: 'anfibio',
 
             },
+            filters: {
+                precio_rango: 'Rango de Precio',
+                min: 'Min',
+                max: 'Max',
+                origen: 'Origen / Lugar',
+                todos_lugares: 'Todos los lugares',
+                aplicar: 'Aplicar Filtros',
+                limpiar: 'Limpiar Todo'
+            },
             favoritos: {
                 tagline: 'Selección Especial',
                 title: 'Nuestros <span class="highlight">Favoritos</span>',
@@ -248,6 +257,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 reptil: 'reptile',
                 aracnido: 'arachnid',
                 anfibio: 'amphibian',
+            },
+            filters: {
+                precio_rango: 'Price Range',
+                min: 'Min',
+                max: 'Max',
+                origen: 'Origin / Location',
+                todos_lugares: 'All locations',
+                aplicar: 'Apply Filters',
+                limpiar: 'Clear All'
             },
             favoritos: {
                 tagline: 'Special Selection',
@@ -419,6 +437,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const bannerBtn = document.querySelector('.banner-safari button');
         if (bannerBtn) bannerBtn.textContent = t.banner.contactar;
+
+        // Sidebar Filters
+        if (t.filters) {
+            const filterPriceTitle = document.getElementById('filter-price-title');
+            if (filterPriceTitle) filterPriceTitle.textContent = t.filters.precio_rango;
+
+            const filterLocTitle = document.getElementById('filter-location-title');
+            if (filterLocTitle) filterLocTitle.textContent = t.filters.origen;
+
+            const applyBtn = document.getElementById('apply-filters');
+            if (applyBtn) applyBtn.textContent = t.filters.aplicar;
+
+            const resetBtn = document.getElementById('reset-filters');
+            if (resetBtn) resetBtn.textContent = t.filters.limpiar;
+
+            const minInput = document.getElementById('price-min');
+            const maxInput = document.getElementById('price-max');
+            if (minInput && minInput.previousElementSibling) minInput.previousElementSibling.textContent = t.filters.min;
+            if (maxInput && maxInput.previousElementSibling) maxInput.previousElementSibling.textContent = t.filters.max;
+        }
+
+        if (typeof window.renderLocationOptions === 'function') {
+            window.renderLocationOptions();
+        }
 
         // Pricing Section
         const pricingTagline = document.querySelector('.pricing-section .section-tagline');
@@ -948,6 +990,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const clearSearchBtn = document.getElementById('clear-search');
     let currentFilter = 'favoritos'; // Se establece Favoritos como filtro inicial por defecto
     let currentSearchTerm = '';
+    let currentMinPrice = '';
+    let currentMaxPrice = '';
+    let currentLocation = 'all';
 
     // --- Search Functions ---
     function searchAnimals(searchTerm, filter = 'all') {
@@ -974,7 +1019,27 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        // Apply price filter
+        const minPrice = parseFloat(currentMinPrice);
+        const maxPrice = parseFloat(currentMaxPrice);
+        if (!isNaN(minPrice)) {
+            filteredAnimals = filteredAnimals.filter(animal => animal.price >= minPrice);
+        }
+        if (!isNaN(maxPrice)) {
+            filteredAnimals = filteredAnimals.filter(animal => animal.price <= maxPrice);
+        }
+
+        // Apply location filter
+        if (currentLocation && currentLocation !== 'all') {
+            filteredAnimals = filteredAnimals.filter(animal => animal.origin === currentLocation);
+        }
+
         renderFilteredAnimals(filteredAnimals);
+        
+        // Pasamos TODOS los animales a renderLocationOptions para que el filtro
+        // siempre muestre todos los países disponibles en la base de datos, 
+        // tal como solicita el usuario.
+        renderLocationOptions(animals);
 
         // Show/hide clear button
         if (searchTerm) {
@@ -1273,6 +1338,73 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Sidebar Filters ---
+    const applyFiltersBtn = document.getElementById('apply-filters');
+    const resetFiltersBtn = document.getElementById('reset-filters');
+    const priceMinInput = document.getElementById('price-min');
+    const priceMaxInput = document.getElementById('price-max');
+    const locationFilterSelect = document.getElementById('location-filter');
+
+    if (applyFiltersBtn) {
+        applyFiltersBtn.addEventListener('click', () => {
+            currentMinPrice = priceMinInput.value;
+            currentMaxPrice = priceMaxInput.value;
+            currentLocation = locationFilterSelect.value;
+            searchAnimals(currentSearchTerm, currentFilter);
+
+            if (isMobile() && animalsGrid) {
+                animalsGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    }
+
+    if (resetFiltersBtn) {
+        resetFiltersBtn.addEventListener('click', () => {
+            priceMinInput.value = '';
+            priceMaxInput.value = '';
+            locationFilterSelect.value = 'all';
+            currentMinPrice = '';
+            currentMaxPrice = '';
+            currentLocation = 'all';
+
+            searchInput.value = '';
+            searchAnimals('', 'all');
+
+            filterBtns.forEach(b => b.classList.remove('active'));
+            const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
+            if (allBtn) allBtn.classList.add('active');
+        });
+    }
+
+    window.renderLocationOptions = function (availableAnimals) {
+        if (!locationFilterSelect) return;
+
+        const lang = currentLanguage || 'es';
+        const t = translations[lang];
+        const currentValue = locationFilterSelect.value;
+        
+        // Si hay animales disponibles del filtro superior, los usamos. 
+        // Si no (porque el filtro de precio/búsqueda mató el resultado), usamos todos para que el usuario pueda volver a filtrar.
+        const animals = (availableAnimals && availableAnimals.length > 0) ? availableAnimals : getAnimals();
+        const locations = [...new Set(animals.map(a => a.origin))].sort();
+
+        locationFilterSelect.innerHTML = '<option value="all">' + (t.filters ? t.filters.todos_lugares : 'Todos los lugares') + '</option>';
+
+        locations.forEach(loc => {
+            const option = document.createElement('option');
+            option.value = loc;
+            option.textContent = loc;
+            locationFilterSelect.appendChild(option);
+        });
+
+        if (locations.includes(currentValue) || currentValue === 'all') {
+            locationFilterSelect.value = currentValue;
+        } else {
+            locationFilterSelect.value = 'all';
+            currentLocation = 'all';
+        }
+    };
+
     // --- Header Scroll ---
     const header = document.querySelector('header');
     window.addEventListener('scroll', () => {
@@ -1340,7 +1472,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const styleSheet = document.createElement("style");
-    styleSheet.innerText = `.revealed { opacity: 1 !important; transform: translateY(0) !important; }`;
+    styleSheet.innerText = ".revealed { opacity: 1 !important; transform: translateY(0) !important; }";
     document.head.appendChild(styleSheet);
 
     // --- Initialization ---
@@ -1350,6 +1482,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Pequeño delay para asegurar que todas las dependencias y el DOM de los animales estén listos
         setTimeout(() => {
+            renderLocationOptions(); // Población inicial de lugares
             renderAnimals('favoritos');
 
             // Asegurar que el botón de favoritos esté marcado como activo
