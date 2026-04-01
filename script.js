@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Simple translation object (embedded for reliability)
     const translations = {
         es: {
+            logo: 'logo_savannah.png',
             nav: {
                 inicio: 'Inicio',
                 nosotros: 'Nosotros',
@@ -220,6 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         },
         en: {
+            logo: 'logo_english.png',
             nav: {
                 inicio: 'Home',
                 nosotros: 'About',
@@ -368,6 +370,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const t = translations[lang];
         console.log(t.nav.inicio);
         if (!t) return;
+
+        // Logo
+        const logos = document.querySelectorAll('.logo-image');
+        logos.forEach(logo => {
+            logo.src = t.logo;
+        });
 
         // Navigation
         document.querySelectorAll('a[href="#inicio"]').forEach(el => el.textContent = t.nav.inicio);

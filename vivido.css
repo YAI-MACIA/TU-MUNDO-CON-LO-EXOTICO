@@ -126,7 +126,7 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    background: #19251f;
+    background: #13241c;
     backdrop-filter: blur(15px);
     z-index: 1000;
 
@@ -144,7 +144,7 @@ header {
 
 /* Ajuste de la imagen */
 .logo-image {
-    height: 90px !important;
+    height: 110px !important;
     /* Ajusta el tamaño según necesites */
     width: auto !important;
     margin-right: 15px !important;
@@ -498,17 +498,23 @@ nav a:hover::after {
 
 .btn-light {
     background: #BF794F;
-    color: var(--primary);
+    color: var(--white);
     border: none;
     padding: 15px 40px;
     border-radius: 50px;
     font-weight: 700;
+    font-size: 1rem;
     cursor: pointer;
     transition: var(--transition);
+    text-decoration: none;
+    display: inline-block;
 }
 
 .btn-light:hover {
+    background: #D1895F;
     transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(191, 121, 79, 0.4);
+    color: var(--white);
 }
 
 .btn-outline {
@@ -825,6 +831,8 @@ nav a:hover::after {
 
 .catalog-sidebar {
     flex: 0 0 280px;
+    display: flex;
+    flex-direction: column;
     background: var(--white);
     border: 1px solid var(--primary);
     border-radius: 25px;
@@ -1442,7 +1450,7 @@ nav a:hover::after {
    Footer
 ========================= */
 footer {
-    background: #19251f;
+    background: #13241c;
     color: var(--white);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding: 100px 0 30px;
@@ -2330,7 +2338,7 @@ footer ul li a:hover {
         justify-content: space-between;
         align-items: center;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        background: #0A1410;
+        background: #13241c;
         position: sticky;
         top: 0;
         z-index: 10;
@@ -2345,7 +2353,7 @@ footer ul li a:hover {
     }
 
     .logo-image {
-        height: 60px !important;
+        height: 110px !important;
         margin-right: 8px !important;
     }
 
@@ -2491,15 +2499,22 @@ footer ul li a:hover {
     }
 
     .catalog-content {
+        display: flex !important;
         flex-direction: column !important;
+        align-items: center !important;
         gap: 30px !important;
+        width: 100% !important;
     }
 
     .catalog-sidebar {
         flex: none !important;
         width: 100% !important;
+        max-width: 350px !important;
+        margin: 0 auto 20px auto !important;
+        display: flex !important;
+        flex-direction: column !important;
         position: static !important;
-        margin-bottom: 20px !important;
+        padding: 25px !important;
     }
 
     .pricing-grid {
@@ -2546,6 +2561,8 @@ footer ul li a:hover {
     .more-animals-container {
         margin-top: 40px;
         padding: 20px;
+        display: flex !important;
+        justify-content: center !important;
     }
 
     .btn-more-animals {
