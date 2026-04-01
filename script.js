@@ -371,11 +371,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(t.nav.inicio);
         if (!t) return;
 
-        // Logo
-        const logos = document.querySelectorAll('.logo-image');
-        logos.forEach(logo => {
-            logo.src = t.logo;
-        });
 
         // Navigation
         document.querySelectorAll('a[href="#inicio"]').forEach(el => el.textContent = t.nav.inicio);
