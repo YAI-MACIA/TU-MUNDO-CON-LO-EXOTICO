@@ -144,7 +144,7 @@ header {
 
 /* Ajuste de la imagen */
 .logo-image {
-    height: 110px !important;
+    height: 100px !important;
     /* Ajusta el tamaño según necesites */
     width: auto !important;
     margin-right: 15px !important;
@@ -2353,7 +2353,7 @@ footer ul li a:hover {
     }
 
     .logo-image {
-        height: 110px !important;
+        height: 130px !important;
         margin-right: 8px !important;
     }
 
