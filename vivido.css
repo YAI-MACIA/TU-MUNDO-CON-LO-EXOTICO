@@ -126,7 +126,7 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    background: #13241c;
+    background: linear-gradient);
     backdrop-filter: blur(15px);
     z-index: 1000;
 
@@ -158,7 +158,7 @@ header {
     display: flex !important;
     align-items: center !important;
     text-decoration: none !important;
-    z-index: 9999 !important;
+    z-index: 9 !important;
 }
 
 /* Estilo del texto del logo */
@@ -283,7 +283,7 @@ nav a:hover::after {
 .mobile-nav-logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 20px;
     color: var(--white);
     font-family: 'Playfair Display', serif;
     font-weight: 700;
@@ -1449,7 +1449,7 @@ nav a:hover::after {
    Footer
 ========================= */
 footer {
-    background: #13241c;
+    background: #244d3a;
     color: var(--white);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding: 100px 0 30px;
