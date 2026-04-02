@@ -14,6 +14,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="vivido.css?v=17">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -208,7 +209,7 @@
                         <div class="price-inputs">
                             <div class="price-field">
                                 <span>Min</span>
-                                <input type="number" id="price-min" placeholder="0" min="0">
+                                <input type="number" id="price-min" placeholder="1" min="1">
                             </div>
                             <div class="price-field">
                                 <span>Max</span>
@@ -218,11 +219,9 @@
                     </div>
                     <div class="sidebar-block">
                         <h4 id="filter-location-title">Origen / Lugar</h4>
-                        <div class="select-wrapper">
-                            <select id="location-filter">
-                                <option value="all">Todos los lugares</option>
+                        <div class="multiple-select-wrapper">
+                            <select id="location-filter" multiple="multiple" style="width: 100%;">
                             </select>
-                            <i class="fas fa-chevron-down"></i>
                         </div>
                     </div>
                     <button id="apply-filters" class="btn-apply">Aplicar Filtros</button>
@@ -233,6 +232,7 @@
                     <div class="catalog-grid" id="animals-grid">
                         <!-- Data will be populated by JS -->
                     </div>
+                    <div id="load-more-container" class="load-more-container"></div>
                 </div>
             </div>
         </div>
@@ -508,6 +508,8 @@
             </div>
         </div>
 
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script src="script.js?v=16"></script>
 </body>
 

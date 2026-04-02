@@ -665,11 +665,13 @@ document.addEventListener('DOMContentLoaded', () => {
         favAnimals.forEach(animal => {
             const card = document.createElement('div');
             card.className = 'animal-card';
+            card.setAttribute('onclick', `openAnimalModal(${animal.id})`);
+            card.style.cursor = 'pointer';
             card.innerHTML = `
                 <div class="fav-star-badge" title="Favorito">
                     <span style="color:#fff;font-size:1.1rem;">&#9733;</span>
                 </div>
-                <div class="animal-img" onclick="openAnimalModal(${animal.id})">
+                <div class="animal-img">
                     <img src="${animal.img}" alt="${animal.name}" loading="lazy"
                          onerror="this.src='https://loremflickr.com/600/400/wildlife?v=${animal.id}'">
                     <span class="category-badge">${animal.category.toUpperCase()}</span>
@@ -681,7 +683,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="origin"><i class="fas fa-location-dot"></i> ${animal.origin}</span>
                         <div class="cart-price-container">
                             <span class="card-price">$${animal.price.toLocaleString()}</span>
-                            <button class="btn-add-cart" onclick="addToCart(${animal.id})"><i class="fas fa-cart-shopping"></i></button>
+                            <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${animal.id})"><i class="fas fa-cart-shopping"></i></button>
                         </div>
                     </div>
                 </div>
@@ -1044,21 +1046,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartModal = document.getElementById('cart-modal');
     const cartItemsList = document.getElementById('cart-items-list');
     const cartTotal = document.getElementById('cart-total');
+    const loadMoreContainer = document.getElementById('load-more-container');
 
     // Search elements
     const searchInput = document.getElementById('animal-search');
     const clearSearchBtn = document.getElementById('clear-search');
-    let currentFilter = 'favoritos'; // Se establece Favoritos como filtro inicial por defecto
+    let currentFilter = 'favoritos'; 
     let currentSearchTerm = '';
     let currentMinPrice = '';
     let currentMaxPrice = '';
-    let currentLocation = 'all';
+    let currentLocation = [];
+    let itemsToDisplay = window.innerWidth <= 1024 ? 3 : 20; // 3 for mobile, 20 for desktop
 
     // --- Search Functions ---
-    function searchAnimals(searchTerm, filter) {
+    function searchAnimals(searchTerm, filter, resetLimit = true) {
         // Update states if parameters are provided
         if (searchTerm !== undefined) currentSearchTerm = searchTerm.toLowerCase().trim();
         if (filter !== undefined) currentFilter = filter;
+        
+        // Reset pagination when filter or search changes
+        if (resetLimit) itemsToDisplay = window.innerWidth <= 1024 ? 3 : 20;
 
         const animals = getAnimals();
         let filteredAnimals = animals;
@@ -1067,7 +1074,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Si el usuario está usando el buscador o los filtros de precio/lugar, 
         // ampliamos la búsqueda a "all" para que encuentre lo que busca, 
         // a menos que explícitamente quiera ver solo sus favoritos.
-        const isManuallyFiltering = currentSearchTerm || currentMinPrice || currentMaxPrice || (currentLocation && currentLocation !== 'all');
+        const isManuallyFiltering = currentSearchTerm || currentMinPrice || currentMaxPrice || (Array.isArray(currentLocation) && currentLocation.length > 0 && !currentLocation.includes('all'));
 
         let activeCategory = currentFilter;
         // Si hay filtros manuales activos y estamos en "favoritos", buscamos en "all" para no limitar al usuario
@@ -1102,8 +1109,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // 4. Filtrar por Lugar
-        if (currentLocation && currentLocation !== 'all') {
-            filteredAnimals = filteredAnimals.filter(animal => animal.origin === currentLocation);
+        if (currentLocation && currentLocation.length > 0 && !currentLocation.includes('all')) {
+            filteredAnimals = filteredAnimals.filter(animal => currentLocation.includes(animal.origin));
         }
 
         renderFilteredAnimals(filteredAnimals);
@@ -1111,13 +1118,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update location options from the total context
         renderLocationOptions(animals);
 
-        // Pasamos TODOS los animales a renderLocationOptions para que el filtro
-        // siempre muestre todos los países disponibles en la base de datos, 
-        // tal como solicita el usuario.
-        renderLocationOptions(animals);
-
         // Show/hide clear button
-        if (searchTerm) {
+        if (currentSearchTerm) {
             clearSearchBtn.style.display = 'flex';
         } else {
             clearSearchBtn.style.display = 'none';
@@ -1125,31 +1127,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Mobile Featured Animals ---
-    function isMobile() {
-        return window.innerWidth <= 768;
-    }
-
-    function getFeaturedAnimals() {
-        const animals = getAnimals();
-        // Featured animals: most popular/expensive ones
-        const featuredIds = [21, 28, 22, 12]; // Tigre Blanco, Jirafa, Gato Serval, Mono Capuchino
-        return animals.filter(animal => featuredIds.includes(animal.id));
+    function isMobileOrTablet() {
+        return window.innerWidth <= 1024;
     }
 
     function renderFilteredAnimals(filteredAnimals) {
         animalsGrid.innerHTML = '';
+        if (loadMoreContainer) loadMoreContainer.innerHTML = '';
 
-        // On mobile, show only featured animals UNLESS there's an active search or filter
         let animalsToShow = filteredAnimals;
         let showMoreButton = false;
 
-        const isFiltering = currentSearchTerm || currentMinPrice || currentMaxPrice || (currentLocation && currentLocation !== 'all') || (currentFilter !== 'all' && currentFilter !== 'favoritos');
-
-        if (isMobile() && !isFiltering && !window.showingAllAnimals) {
-            animalsToShow = getFeaturedAnimals();
-            if (filteredAnimals.length > 4) {
+        // PAGINATION logic only for Mobile S, M, L (and tablets)
+        if (isMobileOrTablet()) {
+            if (filteredAnimals.length > itemsToDisplay) {
+                animalsToShow = filteredAnimals.slice(0, itemsToDisplay);
                 showMoreButton = true;
             }
+        } else {
+            // Desktop: don't restrict initial view
+            animalsToShow = filteredAnimals;
+            showMoreButton = false;
         }
 
         if (animalsToShow.length === 0) {
@@ -1166,6 +1164,8 @@ document.addEventListener('DOMContentLoaded', () => {
         animalsToShow.forEach(animal => {
             const card = document.createElement('div');
             card.className = 'animal-card';
+            card.setAttribute('onclick', `openAnimalModal(${animal.id})`);
+            card.style.cursor = 'pointer';
 
             const isFav = FAVORITOS_IDS.includes(Number(animal.id));
             card.innerHTML = `
@@ -1173,7 +1173,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="fav-star-badge" title="Favorito" style="z-index: 20 !important;">
                     <i class="fas fa-star"></i>
                 </div>` : ''}
-                <div class="animal-img" onclick="openAnimalModal(${animal.id})">
+                <div class="animal-img">
                     <img src="${animal.img}" alt="${animal.name}" loading="lazy" 
                          onerror="this.src='https://loremflickr.com/600/400/reptile?v=${animal.id}'">
                     <span class="category-badge">${animal.category.toUpperCase()}</span>
@@ -1185,7 +1185,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="origin"><i class="fas fa-location-dot"></i> ${animal.origin}</span>
                         <div class="cart-price-container">
                             <span class="card-price">$${animal.price.toLocaleString()}</span>
-                            <button class="btn-add-cart" onclick="addToCart(${animal.id})"><i class="fas fa-cart-shopping"></i></button>
+                            <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${animal.id})"><i class="fas fa-cart-shopping"></i></button>
                         </div>
                     </div>
                 </div>
@@ -1193,31 +1193,26 @@ document.addEventListener('DOMContentLoaded', () => {
             animalsGrid.appendChild(card);
         });
 
-        // Add "Ver más" button for mobile only if not showing all animals
-        if (showMoreButton && filteredAnimals.length > 4 && !window.showingAllAnimals) {
+        // Add "Ver más" button if there are hidden animals (MOBILE ONLY)
+        if (showMoreButton && loadMoreContainer) {
             const moreButton = document.createElement('div');
-            moreButton.className = 'more-animals-container';
+            moreButton.className = 'more-animals-wrapper';
             const t = translations[currentLanguage] || {};
+            const remaining = filteredAnimals.length - itemsToDisplay;
             moreButton.innerHTML = `
-                <button class="btn-more-animals" onclick="showAllAnimals()">
+                <button class="btn-more-animals" onclick="loadMoreAnimals()">
                     <i class="fas fa-chevron-down"></i>
-                    ${t.catalog?.ver_mas || 'Ver más animales'}
+                    ${t.catalog?.ver_mas || 'Ver más animales'} (${remaining})
                     <i class="fas fa-chevron-down"></i>
                 </button>
             `;
-            animalsGrid.appendChild(moreButton);
+            loadMoreContainer.appendChild(moreButton);
         }
     }
 
-    window.showAllAnimals = () => {
-        window.showingAllAnimals = true;
-        searchAnimals(currentSearchTerm, currentFilter);
-
-        // Smooth scroll to animals grid instead of top of section
-        const animalsGrid = document.getElementById('animals-grid');
-        if (animalsGrid) {
-            animalsGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+    window.loadMoreAnimals = () => {
+        itemsToDisplay += 6;
+        searchAnimals(undefined, undefined, false);
     };
 
     // --- Detail Modal Elements ---
@@ -1421,9 +1416,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (applyFiltersBtn) {
         applyFiltersBtn.addEventListener('click', () => {
+            if (priceMinInput.value !== '' && parseFloat(priceMinInput.value) < 1) {
+                priceMinInput.value = 1;
+            }
             currentMinPrice = priceMinInput.value;
             currentMaxPrice = priceMaxInput.value;
-            currentLocation = locationFilterSelect.value;
+            currentLocation = $(locationFilterSelect).val() || [];
             searchAnimals(currentSearchTerm, currentFilter);
 
             if (isMobile() && animalsGrid) {
@@ -1432,14 +1430,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    if (priceMinInput) {
+        priceMinInput.addEventListener('input', () => {
+            if (priceMinInput.value !== '' && parseFloat(priceMinInput.value) < 1) {
+                priceMinInput.value = 1;
+            }
+        });
+    }
+
     if (resetFiltersBtn) {
         resetFiltersBtn.addEventListener('click', () => {
             priceMinInput.value = '';
             priceMaxInput.value = '';
-            locationFilterSelect.value = 'all';
+            $(locationFilterSelect).val(['all']).trigger('change');
             currentMinPrice = '';
             currentMaxPrice = '';
-            currentLocation = 'all';
+            currentLocation = ['all'];
 
             searchInput.value = '';
 
@@ -1455,37 +1461,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    window.showAllAnimals = function () {
-        window.showingAllAnimals = true;
-        searchAnimals(currentSearchTerm, currentFilter);
-    };
+
 
     window.renderLocationOptions = function (availableAnimals) {
         if (!locationFilterSelect) return;
 
         const lang = currentLanguage || 'es';
         const t = translations[lang];
-        const currentValue = locationFilterSelect.value;
+        const currentValue = $(locationFilterSelect).val() || [];
 
         // Si hay animales disponibles del filtro superior, los usamos. 
         // Si no (porque el filtro de precio/búsqueda mató el resultado), usamos todos para que el usuario pueda volver a filtrar.
         const animals = (availableAnimals && availableAnimals.length > 0) ? availableAnimals : getAnimals();
         const locations = [...new Set(animals.map(a => a.origin))].sort();
 
-        locationFilterSelect.innerHTML = '<option value="all">' + (t.filters ? t.filters.todos_lugares : 'Todos los lugares') + '</option>';
+        let optionsHtml = '<option value="all">' + (t.filters ? t.filters.todos_lugares : 'Todos los lugares') + '</option>';
 
         locations.forEach(loc => {
-            const option = document.createElement('option');
-            option.value = loc;
-            option.textContent = loc;
-            locationFilterSelect.appendChild(option);
+            optionsHtml += `<option value="${loc}">${loc}</option>`;
         });
 
-        if (locations.includes(currentValue) || currentValue === 'all') {
-            locationFilterSelect.value = currentValue;
+        $(locationFilterSelect).html(optionsHtml);
+
+        if (currentValue.length > 0) {
+            $(locationFilterSelect).val(currentValue).trigger('change.select2');
         } else {
-            locationFilterSelect.value = 'all';
-            currentLocation = 'all';
+            $(locationFilterSelect).val(['all']).trigger('change.select2');
+            currentLocation = ['all'];
         }
     };
 
@@ -1561,6 +1563,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Initialization ---
     function init() {
+        // Initialize Select2
+        if (locationFilterSelect) {
+            $(locationFilterSelect).select2({
+                placeholder: "Selecciona lugares...",
+                allowClear: true,
+                width: '100%'
+            });
+        }
+
         applyTranslations(currentLanguage);
         renderInterestOptions();
 
